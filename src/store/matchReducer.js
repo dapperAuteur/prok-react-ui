@@ -1,7 +1,14 @@
 import {
   UPDATE_MATCH,
   INCREMENT_HOME_SCORE,
-  INCREMENT_AWAY_SCORE
+  INCREMENT_AWAY_SCORE,
+  INCREMENT_BALLS,
+  INCREMENT_STRIKES,
+  INCREMENT_FOULS,
+  INCREMENT_OUTS,
+  INCREMENT_CURRENT_INNING,
+  CREATE_NEW_MATCH,
+  RESET_COUNT
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
 const incrementAwayScoreReducer = state => {
@@ -14,6 +21,41 @@ const incrementHomeScoreReducer = state => {
   let updatedMatch = state.match;
   updatedMatch.homeTeamScore++;
   return { ...state, match: updatedMatch };
+};
+const incrementBalls = state => {
+  let updatedMatch = state.match;
+  updatedMatch.balls++;
+  return { ...state, match: updatedMatch };
+};
+const incrementStrikes = state => {
+  let updatedMatch = state.match;
+  updatedMatch.strikes++;
+  return { ...state, match: updatedMatch };
+};
+const incrementFouls = state => {
+  let updatedMatch = state.match;
+  updatedMatch.fouls++;
+  return { ...state, match: updatedMatch };
+};
+const incrementOuts = state => {
+  let updatedMatch = state.match;
+  updatedMatch.outs++;
+  return { ...state, match: updatedMatch };
+};
+const incrementCurrentInning = state => {
+  let updatedMatch = state.match;
+  updatedMatch.currentInning++;
+  return { ...state, match: updatedMatch };
+};
+const resetCount = state => {
+  let updatedMatch = state.match;
+  updatedMatch.balls = 0;
+  updatedMatch.strikes = 0;
+  updatedMatch.fouls = 0;
+  return { ...state, match: updatedMatch };
+};
+const createNewMatch = state => {
+  return { ...state, match: matchInitialState.match };
 };
 const updateMatch = (match, state) => {
   let updatedMatch = [...state.match];
@@ -32,6 +74,20 @@ export default function matchReducer(state = matchInitialState, action) {
       return incrementAwayScoreReducer(state);
     case UPDATE_MATCH:
       return updateMatch(action.match, state);
+    case INCREMENT_BALLS:
+      return incrementBalls(state);
+    case INCREMENT_STRIKES:
+      return incrementStrikes(state);
+    case INCREMENT_FOULS:
+      return incrementFouls(state);
+    case INCREMENT_OUTS:
+      return incrementOuts(state);
+    case RESET_COUNT:
+      return resetCount(state);
+    case CREATE_NEW_MATCH:
+      return createNewMatch(state);
+    case INCREMENT_CURRENT_INNING:
+      return incrementCurrentInning(state);
     default:
       return state;
   }
