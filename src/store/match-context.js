@@ -3,10 +3,24 @@ import { matchInitialState } from "./DefaultStates";
 
 export default React.createContext({
   ...matchInitialState,
-  // incrementScore: teamScore => {},
-  // decrementScore: teamScore => {},
-  // incrementStat: stat => {},
-  // decrementStat: stat => {},
+  incrementAwayScore: score => {
+    score++;
+  },
+  decrementAwayScore: () => {},
+  incrementHomeScore: score => {
+    score++;
+  },
+  decrementHomeScore: () => {},
+  incrementStat: () => {},
+  decrementStat: () => {},
+  incrementBalls: () => {},
+  decrementBalls: () => {},
+  incrementStrikes: () => {},
+  decrementStrikes: () => {},
+  incrementFouls: () => {},
+  decrementFouls: () => {},
+  incrementOuts: () => {},
+  decrementOuts: () => {},
   updateMatch: match => {},
   // updateMatches: matches => {},
   innings: [

@@ -5,6 +5,10 @@ export const matchInitialState = {
   endpoint: "localhost:4001",
   // endpoint: "http://192.168.0.4:4001",
   match: {
+    incrementAwayScore: () => {},
+    decrementAwayScore: () => {},
+    incrementHomeScore: () => {},
+    decrementHomeScore: () => {},
     homeTeam: "5c9a9ef3e6814f122a1af324",
     awayTeam: "5c9a9e2be6814f122a1af322",
     homeTeamScore: 0,

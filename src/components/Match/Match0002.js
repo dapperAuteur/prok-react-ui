@@ -1,10 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import MatchContext from "./../../store/match-context";
+import { matchInitialState } from "./../../store/DefaultStates";
 
 export default function Match(props) {
-  const context = useContext(MatchContext);
-  console.log("Match 6 context", context);
+  // const context = useContext(MatchContext);
+  let match = matchInitialState;
+  const [thisMatch, setMatch] = useState(match);
+  // console.log("Match 6 context", context);
   console.log("Match 7 props", props);
+  console.log("match", match);
+
   const [hName, sethName] = useState("Home Team");
   // const [homeState, setHomeState] = useState(0);
   const [aName, setaName] = useState("Away Team");
@@ -15,15 +20,18 @@ export default function Match(props) {
   // const [fouls, setFouls] = useState(0);
   // const [outs, setOuts] = useState(0);
 
-  const {
-    match,
-    matches,
-    innings,
-    incrementAwayScore,
-    incrementHomeScore,
-    updateMatch
-  } = context;
+  // const {
+  //   matches,
+  //   innings,
+  //   incrementAwayScore,
+  //   incrementHomeScore,
+  //   updateMatch
+  // } = context;
   let {
+    incrementAwayScore,
+    decrementAwayScore,
+    incrementHomeScore,
+    decrementHomeScore,
     awayTeamScore,
     balls,
     currentInning,
@@ -31,7 +39,9 @@ export default function Match(props) {
     homeTeamScore,
     outs,
     strikes
-  } = match;
+  } = match.match;
+  console.log("incrementAwayScore", incrementAwayScore);
+  // console.log(incrementAwayScore());s
 
   const INNINGS = [
     "Top 1st",
@@ -81,21 +91,22 @@ export default function Match(props) {
 
   function handleSubmit() {}
 
-  // useEffect(() => {
-  //   document.title = `Home: ${homeTeamScore} vs Away: ${awayTeamScore}`;
-  //   if (fouls === 4 || strikes === 3) {
-  //     resetMatch();
-  //     incrementOuts();
-  //   }
-  //   if (outs === 3) {
-  //     currentInning++;
-  //     outs = 0;
-  //   }
-  //   if (balls === 4) {
-  //     console.log("balls, now walk", balls);
-  //     resetMatch();
-  //   }
-  // });
+  useEffect(() => {
+    document.title = `Home: ${homeTeamScore} vs Away: ${awayTeamScore}`;
+    setMatch();
+    if (fouls === 4 || strikes === 3) {
+      resetMatch();
+      incrementOuts();
+    }
+    if (outs === 3) {
+      currentInning++;
+      outs = 0;
+    }
+    if (balls === 4) {
+      console.log("balls, now walk", balls);
+      resetMatch();
+    }
+  });
 
   return (
     <div>
@@ -103,20 +114,20 @@ export default function Match(props) {
       <div>
         <h2>Game Status</h2>
         <h3>Inning: {INNINGS[currentInning]}</h3>
-        <button onClick={() => context.balls++}>Balls: {balls}</button>
+        <button onClick={() => balls++}>Balls: {balls}</button>
         <button onClick={incrementStrikes}>Strikes: {strikes}</button>
         <button onClick={incrementFouls}>Fouls: {fouls}</button>
         <button onClick={incrementOuts}>Outs: {outs}</button>
       </div>
       <div>
         <h3>{hName}</h3>
-        <button onClick={() => incrementHomeScore()}>
+        <button onClick={homeTeamScore => incrementHomeScore(homeTeamScore)}>
           Score: {homeTeamScore}
         </button>
       </div>
       <div>
         <h3>{aName}</h3>
-        <button onClick={() => incrementAwayScore()}>
+        <button onClick={incrementAwayScore(awayTeamScore)}>
           Score: {awayTeamScore}
         </button>
       </div>
