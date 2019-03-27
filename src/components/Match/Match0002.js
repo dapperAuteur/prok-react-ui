@@ -9,7 +9,6 @@ export default function Match002(props) {
   const [thisMatch, setMatch] = useState(match);
   console.log("Match 6 context", context);
   console.log("Match 7 props", props);
-  console.log("match", match);
   const {
     match,
     incrementHomeScore,
@@ -18,7 +17,8 @@ export default function Match002(props) {
     incrementStrikes,
     incrementFouls,
     incrementOuts,
-    incrementInning
+    incrementInning,
+    resetCount
   } = context;
 
   const {
@@ -31,23 +31,52 @@ export default function Match002(props) {
     fouls,
     outs
   } = match;
+  // useEffect(() => {
+  //   return (
+  //     () => {
+  //       effect;
+  //     },
+  //     [input]
+  //   );
+  // });
+
+  useEffect(() => {
+    return () => {
+      document.title = `Home Team: ${homeTeamScore} vs Away Team: ${awayTeamScore}`;
+      if (balls === 3) {
+        console.log(balls, " balls, now walk");
+        resetCount();
+      }
+      if (fouls === 3 || strikes === 2) {
+        console.log("strikes or fouls");
+        incrementOuts();
+        // resetCount();
+      }
+      if (outs === 2) {
+        console.log("outs", outs);
+        incrementInning();
+      }
+    };
+  });
+
   return (
     <div>
       <h1>ProKickballer</h1>
       <div>
         <h2>Game Status</h2>
+        <h3>Inning: {innings[currentInning]}</h3>
+        <button onClick={incrementBalls}>Balls: {balls}</button>
+        <button onClick={incrementStrikes}>Strikes: {strikes}</button>
+        <button onClick={incrementFouls}>Fouls: {fouls}</button>
+        <button onClick={incrementOuts}>Outs: {outs}</button>
       </div>
       <div>
         <h3>{"Home Team"}</h3>
-        <button onClick={context.incrementHomeScore}>
-          Score: {homeTeamScore}
-        </button>
+        <button onClick={incrementHomeScore}>Score: {homeTeamScore}</button>
       </div>
       <div>
         <h3>{"Away Team"}</h3>
-        <button onClick={context.incrementAwayScore}>
-          Score: {awayTeamScore}
-        </button>
+        <button onClick={incrementAwayScore}>Score: {awayTeamScore}</button>
       </div>
     </div>
   );

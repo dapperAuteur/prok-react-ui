@@ -10,7 +10,8 @@ import {
   INCREMENT_OUTS,
   INCREMENT_CURRENT_INNING,
   CREATE_NEW_MATCH,
-  UPDATE_MATCH
+  UPDATE_MATCH,
+  RESET_COUNT
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
 
@@ -44,6 +45,9 @@ const ReadyState = props => {
   const updateMatch = () => {
     return dispatch({ type: UPDATE_MATCH });
   };
+  const resetCount = () => {
+    return dispatch({ type: RESET_COUNT });
+  };
 
   return (
     <MatchContext.Provider
@@ -60,6 +64,7 @@ const ReadyState = props => {
         incrementOuts: incrementOuts,
         incrementInning: incrementInning,
         createMatch: createMatch,
+        resetCount: resetCount,
         updateMatch: updateMatch
       }}
     >

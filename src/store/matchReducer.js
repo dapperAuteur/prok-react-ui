@@ -45,6 +45,10 @@ const incrementOuts = state => {
 const incrementCurrentInning = state => {
   let updatedMatch = state.match;
   updatedMatch.currentInning++;
+  updatedMatch.outs = 0;
+  updatedMatch.balls = 0;
+  updatedMatch.strikes = 0;
+  updatedMatch.fouls = 0;
   return { ...state, match: updatedMatch };
 };
 const resetCount = state => {
@@ -55,7 +59,13 @@ const resetCount = state => {
   return { ...state, match: updatedMatch };
 };
 const createNewMatch = state => {
-  return { ...state, match: matchInitialState.match };
+  let updatedMatches = state.matches;
+  console.log("updatedMatches", updatedMatches);
+  return {
+    ...state,
+    match: matchInitialState.match,
+    matches: updatedMatches.push(matchInitialState.match)
+  };
 };
 const updateMatch = (match, state) => {
   let updatedMatch = [...state.match];
