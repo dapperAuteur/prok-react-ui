@@ -14,7 +14,8 @@ import {
   RESET_COUNT,
   REGISTER_USER,
   LOGIN_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  SET_USER
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
 const API_URL = "//localhost:8080/api/ver0001";
@@ -61,6 +62,10 @@ const ReadyState = props => {
   const registerUser = userCredentials => {
     return dispatch({ type: REGISTER_USER, userCredentials: userCredentials });
   };
+  const setUser = user => {
+    console.log("ReadyState setUser 66 user", user);
+    return dispatch({ type: SET_USER, user: user });
+  };
 
   // const signIn = (authInfo, history) => async dispatch => {
   //   authInfo.withCredentials = true;
@@ -89,7 +94,8 @@ const ReadyState = props => {
         updateMatch: updateMatch,
         loginUser: loginUser,
         logoutUser: logoutUser,
-        registerUser: registerUser
+        registerUser: registerUser,
+        setUser: setUser
       }}
     >
       {props.children}

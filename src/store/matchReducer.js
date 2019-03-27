@@ -8,9 +8,19 @@ import {
   INCREMENT_OUTS,
   INCREMENT_CURRENT_INNING,
   CREATE_NEW_MATCH,
-  RESET_COUNT
+  RESET_COUNT,
+  SET_USER,
+  LOGOUT_USER
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
+const setUser = (state, user) => {
+  console.log("matchReducer 17 user", user);
+  let updatedState = state;
+  updatedState.currentUser = user;
+  updatedState.match.scoreKeeper = user;
+  console.log("matchReducer 21 updatedState", updatedState);
+  return { state: updatedState };
+};
 const incrementAwayScoreReducer = state => {
   let updatedMatch = state.match;
   updatedMatch.awayTeamScore++;
@@ -78,6 +88,8 @@ const updateMatch = (match, state) => {
 
 export default function matchReducer(state = matchInitialState, action) {
   switch (action.type) {
+    case SET_USER:
+      return setUser(state, action.user);
     case INCREMENT_HOME_SCORE:
       return incrementHomeScoreReducer(state);
     case INCREMENT_AWAY_SCORE:
