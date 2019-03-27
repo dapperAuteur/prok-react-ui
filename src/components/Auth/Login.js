@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useRef } from "react";
 // import { login } from "./../../actions/securityActions";
 import MatchContext from "./../../store/match-context";
 import axios from "axios";
@@ -8,8 +8,6 @@ axios.defaults.withCredentials = true;
 
 export default function Login(props) {
   const context = useContext(MatchContext);
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const username = useRef(null);
   const password = useRef(null);
@@ -55,7 +53,6 @@ export default function Login(props) {
   //   console.log("user 58", user);
   // }
 
-  // const { errors } = this.state;
   return (
     <div className="login">
       <div className="container">
