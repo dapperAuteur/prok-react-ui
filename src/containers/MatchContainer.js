@@ -8,8 +8,8 @@ import thunk from "redux-thunk";
 import reducer from "./../store/reducer";
 // import { getCurrentUser } from "./../store/actions/index";
 import App from "./App";
-import Match from "../components/Match/Match0002";
-
+import Match from "../components/Match/Match0002_createMatchBranch";
+console.log("reducer", reducer);
 const rootReducer = combineReducers({ reducer });
 
 const logger = store => {

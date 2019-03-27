@@ -1,3 +1,4 @@
+import { matchInitialState } from "./DefaultStates";
 import {
   INCREMENT_HOME_SCORE,
   DECREMENT_HOME_SCORE,
@@ -45,7 +46,7 @@ const updateMatch = (match, state) => {
   return { ...state, match: updatedMatch, matches: updatedMatches };
 };
 
-export function matchReducer(state, action) {
+export default function matchReducer(state = matchInitialState, action) {
   switch (action.type) {
     case INCREMENT_AWAY_SCORE:
       return incrementAwayScore(action.match, state);

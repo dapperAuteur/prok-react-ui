@@ -3,22 +3,8 @@ import MatchContext from "./../../store/match-context";
 import { matchInitialState } from "./../../store/DefaultStates";
 
 export default function MatchRedux(props) {
-  // const context = useContext(MatchContext);
-  let match = matchInitialState;
-  const [thisMatch, setMatch] = useState(match);
-  // console.log("Match 6 context", context);
   console.log("Match 7 props", props);
-  console.log("match", match);
-
-  const [hName, sethName] = useState("Home Team");
-  // const [homeState, setHomeState] = useState(0);
-  const [aName, setaName] = useState("Away Team");
-  // const [awayState, setAwayState] = useState(0);
-  // const [currentInning, setInning] = useState(0);
-  // const [balls, setBalls] = useState(0);
-  // const [strikes, setStrikes] = useState(0);
-  // const [fouls, setFouls] = useState(0);
-  // const [outs, setOuts] = useState(0);
+  // console.log("match", match);
 
   // const {
   //   matches,
@@ -27,21 +13,19 @@ export default function MatchRedux(props) {
   //   incrementHomeScore,
   //   updateMatch
   // } = context;
-  let {
-    incrementAwayScore,
-    decrementAwayScore,
-    incrementHomeScore,
-    decrementHomeScore,
-    awayTeamScore,
-    balls,
-    currentInning,
-    fouls,
-    homeTeamScore,
-    outs,
-    strikes
-  } = match.match;
-  console.log("incrementAwayScore", incrementAwayScore);
-  // console.log(incrementAwayScore());s
+  // let {
+  //   incrementAwayScore,
+  //   decrementAwayScore,
+  //   incrementHomeScore,
+  //   decrementHomeScore,
+  //   awayTeamScore,
+  //   balls,
+  //   currentInning,
+  //   fouls,
+  //   homeTeamScore,
+  //   outs,
+  //   strikes
+  // } = match.match;
 
   const INNINGS = [
     "Top 1st",
@@ -59,59 +43,59 @@ export default function MatchRedux(props) {
     "MATCH OVER"
   ];
 
-  const setAwayScore = () => {
-    return awayTeamScore + 1;
-  };
-  const setHomeScore = () => {
-    return homeTeamScore + 1;
-  };
+  // const setAwayScore = () => {
+  //   return awayTeamScore + 1;
+  // };
+  // const setHomeScore = () => {
+  //   return homeTeamScore + 1;
+  // };
 
-  function resetMatch() {
-    balls = 0;
-    strikes = 0;
-    fouls = 0;
-  }
+  // function resetMatch() {
+  //   balls = 0;
+  //   strikes = 0;
+  //   fouls = 0;
+  // }
 
-  function incrementBalls() {
-    return balls++;
-  }
+  // function incrementBalls() {
+  //   return balls++;
+  // }
 
-  function incrementStrikes() {
-    return strikes++;
-  }
+  // function incrementStrikes() {
+  //   return strikes++;
+  // }
 
-  function incrementFouls() {
-    return fouls++;
-  }
+  // function incrementFouls() {
+  //   return fouls++;
+  // }
 
-  function incrementOuts() {
-    outs++;
-    return resetMatch();
-  }
+  // function incrementOuts() {
+  //   outs++;
+  //   return resetMatch();
+  // }
 
   function handleSubmit() {}
 
-  useEffect(() => {
-    document.title = `Home: ${homeTeamScore} vs Away: ${awayTeamScore}`;
-    setMatch();
-    if (fouls === 4 || strikes === 3) {
-      resetMatch();
-      incrementOuts();
-    }
-    if (outs === 3) {
-      currentInning++;
-      outs = 0;
-    }
-    if (balls === 4) {
-      console.log("balls, now walk", balls);
-      resetMatch();
-    }
-  });
+  // useEffect(() => {
+  //   document.title = `Home: ${homeTeamScore} vs Away: ${awayTeamScore}`;
+  //   setMatch();
+  //   if (fouls === 4 || strikes === 3) {
+  //     resetMatch();
+  //     incrementOuts();
+  //   }
+  //   if (outs === 3) {
+  //     currentInning++;
+  //     outs = 0;
+  //   }
+  //   if (balls === 4) {
+  //     console.log("balls, now walk", balls);
+  //     resetMatch();
+  //   }
+  // });
 
   return (
     <div>
       <h1>ProKickballer</h1>
-      <div>
+      {/* <div>
         <h2>Game Status</h2>
         <h3>Inning: {INNINGS[currentInning]}</h3>
         <button onClick={() => balls++}>Balls: {balls}</button>
@@ -130,7 +114,7 @@ export default function MatchRedux(props) {
         <button onClick={incrementAwayScore(awayTeamScore)}>
           Score: {awayTeamScore}
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
