@@ -1,4 +1,5 @@
 import { UPDATE_MATCH } from "./actionTypes";
+import { matchInitialState } from "./DefaultStates";
 
 const updateMatch = (match, state) => {
   let updatedMatch = [...state.match];
@@ -9,7 +10,7 @@ const updateMatch = (match, state) => {
   return { ...state, match: updatedMatch, matches: updatedMatches };
 };
 
-export function matchReducer(state, action) {
+export function matchReducer(state = matchInitialState, action) {
   switch (action.type) {
     case UPDATE_MATCH:
       return updateMatch(action.match, state);
