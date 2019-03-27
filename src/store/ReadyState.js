@@ -1,50 +1,30 @@
 import React, { useReducer } from "react";
 import matchReducer from "./matchReducer";
 import MatchContext from "./match-context";
-import {
-  INCREMENT_HOME_SCORE,
-  DECREMENT_HOME_SCORE,
-  INCREMENT_AWAY_SCORE,
-  DECREMENT_AWAY_SCORE,
-  INCREMENT_BALLS,
-  DECREMENT_BALLS,
-  INCREMENT_STRIKES,
-  DECREMENT_STRIKES,
-  INCREMENT_FOULS,
-  DECREMENT_FOULS,
-  INCREMENT_OUTS,
-  DECREMENT_OUTS,
-  INCREMENT_CURRENT_INNING,
-  DECREMENT_CURRENT_INNING,
-  UPDATE_MATCH
-} from "./actionTypes";
+import { INCREMENT_HOME_SCORE, INCREMENT_AWAY_SCORE } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
 
 const ReadyState = props => {
   console.log("ReadyState 8 props", props);
   const [matchState, dispatch] = useReducer(matchReducer, matchInitialState);
-  const incrementAwayScore = match => {
-    console.log("ReadyState 27 match", match);
-    dispatch({ type: INCREMENT_AWAY_SCORE, match: match });
+  const incrementHomeScore = num => {
+    console.log("ReadyState 31 match");
+    console.log("num", num);
+    return dispatch({ type: INCREMENT_HOME_SCORE });
   };
-  const incrementHomeScore = match => {
-    console.log("ReadyState 31 match", match);
-    dispatch({ type: INCREMENT_HOME_SCORE, match: match });
-  };
-  const updateMatch = match => {
-    console.log("ReadyState 11 match", match);
-    dispatch({ type: UPDATE_MATCH, match: match });
+  const incrementStat = state => {
+    console.log("state", state);
+    return dispatch({ type: INCREMENT_AWAY_SCORE });
   };
   return (
     <MatchContext.Provider
       value={{
-        endpoint: matchState.endpoint,
-        innings: matchState.innings,
-        match: matchState.match,
-        matches: matchState.matches,
-        incrementAwayScore: incrementAwayScore,
+        endpoint: matchInitialState.endpoint,
+        innings: matchInitialState.innings,
+        match: matchInitialState.match,
+        matches: matchInitialState.matches,
         incrementHomeScore: incrementHomeScore,
-        updateMatch: updateMatch
+        incrementAwayScore: incrementStat
       }}
     >
       {props.children}
