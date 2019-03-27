@@ -11,9 +11,13 @@ import {
   INCREMENT_CURRENT_INNING,
   CREATE_NEW_MATCH,
   UPDATE_MATCH,
-  RESET_COUNT
+  RESET_COUNT,
+  REGISTER_USER,
+  LOGIN_USER,
+  LOGOUT_USER
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
+const API_URL = "//localhost:8080/api/ver0001";
 
 const ReadyState = props => {
   console.log("ReadyState 8 props", props);
@@ -48,6 +52,23 @@ const ReadyState = props => {
   const resetCount = () => {
     return dispatch({ type: RESET_COUNT });
   };
+  const loginUser = userCredentials => {
+    return dispatch({ type: LOGIN_USER, userCredentials: userCredentials });
+  };
+  const logoutUser = () => {
+    return dispatch({ type: LOGOUT_USER });
+  };
+  const registerUser = userCredentials => {
+    return dispatch({ type: REGISTER_USER, userCredentials: userCredentials });
+  };
+
+  // const signIn = (authInfo, history) => async dispatch => {
+  //   authInfo.withCredentials = true;
+  //   const res = await axios.post(`${API_URL}/auth/sign-in`, authInfo);
+  //   history.push("/").then(res => {
+  //     dispatch(loginUser(res.data));
+  //   });
+  // };
 
   return (
     <MatchContext.Provider
@@ -65,7 +86,10 @@ const ReadyState = props => {
         incrementInning: incrementInning,
         createMatch: createMatch,
         resetCount: resetCount,
-        updateMatch: updateMatch
+        updateMatch: updateMatch,
+        loginUser: loginUser,
+        logoutUser: logoutUser,
+        registerUser: registerUser
       }}
     >
       {props.children}

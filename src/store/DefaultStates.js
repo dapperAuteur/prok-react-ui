@@ -2,9 +2,11 @@ import React, { useReducer } from "react";
 import * as actionTypes from "./actionTypes";
 
 export const matchInitialState = {
+  currentUser: {},
   endpoint: "localhost:4001",
   // endpoint: "http://192.168.0.4:4001",
   match: {
+    scoreKeeper: "",
     homeTeam: "5c9a9ef3e6814f122a1af324",
     awayTeam: "5c9a9e2be6814f122a1af322",
     homeTeamScore: 0,
@@ -34,6 +36,7 @@ export const matchInitialState = {
 };
 
 export const matchDefaultState = {
+  currentUser: {},
   match: {
     homeTeam: "5c9a9ef3e6814f122a1af324",
     awayTeam: "5c9a9e2be6814f122a1af322"

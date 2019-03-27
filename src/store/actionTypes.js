@@ -18,3 +18,6 @@ export const CREATE_NEW_MATCH = "CREATE_NEW_MATCH";
 export const UPDATE_MATCH = "UPDATE_MATCH";
 export const SET_MATCHES = "SET_MATCHES";
 export const UPDATE_MATCHES = "UPDATE_MATCHES";
+export const REGISTER_USER = "REGISTER_USER";
+export const LOGIN_USER = "LOGIN_USER";
+export const LOGOUT_USER = "LOGOUT_USER";

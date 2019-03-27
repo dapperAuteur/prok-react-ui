@@ -29,16 +29,16 @@ export default function Matches() {
   const [matches, setMatches] = useState([]);
   // getMatches();
   // console.log("matches 30", matches);
-  useEffect(() => {
-    return (
-      () => {
-        axios.get(API_URL).then(res => {
-          console.log("res 36", res);
-        });
-      },
-      [matches]
-    );
-  });
+  // useEffect(() => {
+  //   return (
+  //     () => {
+  //       axios.get(API_URL).then(res => {
+  //         console.log("res 36", res);
+  //       });
+  //     },
+  //     [matches]
+  //   );
+  // });
   return (
     <div>
       <h2>Matches</h2>
