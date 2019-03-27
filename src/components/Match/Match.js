@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 export default function Match() {
+  const [hName, sethName] = useState("Home Team");
   const [homeState, setHomeState] = useState(0);
+  const [aName, setaName] = useState("Away Team");
   const [awayState, setAwayState] = useState(0);
   const [currentInning, setInning] = useState(0);
   const [balls, setBalls] = useState(0);
@@ -48,6 +50,8 @@ export default function Match() {
     resetMatch();
   }
 
+  function handleSubmit() {}
+
   useEffect(() => {
     document.title = `Home: ${homeState} vs Away: ${awayState}`;
     if (fouls === 4 || strikes === 3) {
@@ -76,13 +80,13 @@ export default function Match() {
         <button onClick={incrementOuts}>Outs: {outs}</button>
       </div>
       <div>
-        <h3>Home Team</h3>
+        <h3>{hName}</h3>
         <button onClick={() => setHomeState(homeState + 1)}>
           Score: {homeState}
         </button>
       </div>
       <div>
-        <h3>Away Team</h3>
+        <h3>{aName}</h3>
         <button onClick={() => setAwayState(awayState => awayState + 1)}>
           Score: {awayState}
         </button>
