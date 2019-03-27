@@ -11,7 +11,7 @@ export default function Login(props) {
   const [errors, setErrors] = useState({});
   const username = useRef(null);
   const password = useRef(null);
-  console.log("context", context);
+  // console.log("context", context);
 
   const login = async loginRequest => {
     loginRequest.withCredentials = true;
@@ -19,7 +19,7 @@ export default function Login(props) {
       "//localhost:8080/api/ver0001/auth/sign-in",
       loginRequest
     );
-    console.log("res 41", res.data.session);
+    // console.log("res 41", res.data.session);
     document.cookie = "sid=" + JSON.stringify(res.data.session);
     context.setUser(res.data.session.user);
 
@@ -32,26 +32,10 @@ export default function Login(props) {
       username: username.current.value,
       password: password.current.value
     };
-    console.log("loginRequest 55", loginRequest);
+    // console.log("loginRequest 55", loginRequest);
     const user = login(loginRequest);
-    console.log("user 58", user);
+    // console.log("user 58", user);
   }
-
-  // onChange(e) {
-  //   this.setState({ [e.target.name]: e.target.value });
-  // }
-
-  // onSubmit(e) {
-  //   e.preventDefault();
-  //   const loginRequest = {
-  //     username: username,
-  //     password: password
-  //   };
-  //   console.log("loginRequest 55", loginRequest);
-  //   // this.props.login(loginRequest);
-  //   const user = this.login(loginRequest);
-  //   console.log("user 58", user);
-  // }
 
   return (
     <div className="login">
@@ -68,7 +52,6 @@ export default function Login(props) {
                   })}
                   placeholder="Email Address (Username)"
                   name="username"
-                  // value={username}
                   ref={username}
                 />
                 {errors.username && (
@@ -83,7 +66,6 @@ export default function Login(props) {
                   })}
                   placeholder="Password"
                   name="password"
-                  // value={password}
                   ref={password}
                 />
                 {errors.password && (

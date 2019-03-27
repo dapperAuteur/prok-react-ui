@@ -23,7 +23,7 @@ import { matchInitialState } from "./DefaultStates";
 const API_URL = "//localhost:8080/api/ver0001";
 
 const ReadyState = props => {
-  console.log("ReadyState 8 props", props);
+  // console.log("ReadyState 8 props", props);
   const [matchState, dispatch] = useReducer(matchReducer, matchInitialState);
   const incrementHomeScore = () => {
     return dispatch({ type: INCREMENT_HOME_SCORE });
@@ -65,7 +65,7 @@ const ReadyState = props => {
     return dispatch({ type: REGISTER_USER, userCredentials: userCredentials });
   };
   const setUser = user => {
-    console.log("ReadyState setUser 66 user", user);
+    // console.log("ReadyState setUser 66 user", user);
     return dispatch({ type: SET_USER, user: user });
   };
   const getMatches = () => {

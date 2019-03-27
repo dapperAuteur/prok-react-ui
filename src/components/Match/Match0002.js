@@ -7,8 +7,8 @@ export default function Match002(props) {
   const context = useContext(MatchContext);
   // let match = matchInitialState.match;
   const [thisMatch, setMatch] = useState(match);
-  console.log("Match 6 context", context);
-  console.log("Match 7 props", props);
+  // console.log("Match 6 context", context);
+  // console.log("Match 7 props", props);
   const {
     match,
     incrementHomeScore,
@@ -31,14 +31,6 @@ export default function Match002(props) {
     fouls,
     outs
   } = match;
-  // useEffect(() => {
-  //   return (
-  //     () => {
-  //       effect;
-  //     },
-  //     [input]
-  //   );
-  // });
 
   useEffect(() => {
     return () => {

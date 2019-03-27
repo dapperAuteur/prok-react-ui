@@ -11,7 +11,7 @@ export default function Register(props) {
   const [errors, setErrors] = useState({});
   const username = useRef(null);
   const password = useRef(null);
-  console.log("context", context);
+  // console.log("context", context);
 
   // componentWillReceiveProps(nextProps) {
   //   // if (nextProps.security.validToken) {
@@ -26,13 +26,13 @@ export default function Register(props) {
 
   const signUp = async signUpRequest => {
     signUpRequest.withCredentials = true;
-    console.log("signUpRequest", signUpRequest);
+    // console.log("signUpRequest", signUpRequest);
     const res = await axios.post(
       "//localhost:8080/api/ver0001/auth/sign-up",
       signUpRequest
     );
-    console.log("res", res);
-    console.log("res 41", res.data.session);
+    // console.log("res", res);
+    // console.log("res 41", res.data.session);
     document.cookie = "sid=" + JSON.stringify(res.data.session);
     context.setUser(res.data.session.user);
     return res;
@@ -47,7 +47,7 @@ export default function Register(props) {
     console.log("signUpRequest 55", signUpRequest);
     // this.props.login(signUpRequest);
     const user = signUp(signUpRequest);
-    console.log("user 58", user);
+    // console.log("user 58", user);
   }
 
   return (

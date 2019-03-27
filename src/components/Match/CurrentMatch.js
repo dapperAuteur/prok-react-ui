@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 export default function CurrentMatch(props) {
   const context = useContext(MatchContext);
-  console.log("context", context);
-  console.log("props 4", props.props);
+  // console.log("context", context);
+  // console.log("props 4", props.props);
   const thisMatch = props.props;
-  console.log("thisMatch", thisMatch);
+  // console.log("thisMatch", thisMatch);
   const [hName, sethName] = useState(props.props.homeTeamName);
   const [homeScore, setHomeScore] = useState(0);
   const [aName, setaName] = useState(props.props.awayTeamName);

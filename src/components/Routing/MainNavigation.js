@@ -12,8 +12,8 @@ const signOut = async => {
 export default function MainNavigation(props) {
   const context = useContext(MatchContext);
   const { createMatch, currentUser } = context;
-  console.log("currentUser", currentUser);
-  console.log("createMatch", createMatch);
+  // console.log("currentUser", currentUser);
+  // console.log("createMatch", createMatch);
   return (
     <header className="main-navigation">
       <nav>

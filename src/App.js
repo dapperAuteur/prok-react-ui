@@ -11,7 +11,7 @@ import MainNavigation from "./components/Routing/MainNavigation";
 
 export default function App(props) {
   const context = useContext(MatchContext);
-  console.log("context", context);
+  // console.log("context", context);
   function getCook(cookiename) {
     // Get name followed by anything except a semicolon
     var cookiestring = RegExp("" + cookiename + "[^;]+").exec(document.cookie);
@@ -23,7 +23,7 @@ export default function App(props) {
 
   //Sample usage
   var cookieValue = getCook("sid");
-  console.log("cookieValue", cookieValue);
+  // console.log("cookieValue", cookieValue);
   return (
     <ReadyState>
       <Router>

@@ -20,14 +20,14 @@ const setUser = (state, user) => {
   let updatedState = state;
   updatedState.currentUser = user;
   updatedState.match.scoreKeeper = user;
-  console.log("matchReducer 21 updatedState", updatedState);
+  // console.log("matchReducer 21 updatedState", updatedState);
   return { state: updatedState };
 };
 const setMatches = (state, matches) => {
-  console.log("matches", matches);
+  // console.log("matches", matches);
   let updatedState = state;
   updatedState.matches = matches;
-  console.log("matchReducer 30 updatedState", updatedState);
+  // console.log("matchReducer 30 updatedState", updatedState);
   return { state: updatedState };
 };
 const incrementAwayScoreReducer = state => {
@@ -36,7 +36,6 @@ const incrementAwayScoreReducer = state => {
   return { ...state, match: updatedMatch };
 };
 const incrementHomeScoreReducer = state => {
-  console.log("state", state);
   let updatedMatch = state.match;
   updatedMatch.homeTeamScore++;
   return { ...state, match: updatedMatch };
