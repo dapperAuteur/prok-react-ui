@@ -10,7 +10,9 @@ import {
   CREATE_NEW_MATCH,
   RESET_COUNT,
   SET_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  GET_MATCHES,
+  SET_MATCHES
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
 const setUser = (state, user) => {
@@ -19,6 +21,13 @@ const setUser = (state, user) => {
   updatedState.currentUser = user;
   updatedState.match.scoreKeeper = user;
   console.log("matchReducer 21 updatedState", updatedState);
+  return { state: updatedState };
+};
+const setMatches = (state, matches) => {
+  console.log("matches", matches);
+  let updatedState = state;
+  updatedState.matches = matches;
+  console.log("matchReducer 30 updatedState", updatedState);
   return { state: updatedState };
 };
 const incrementAwayScoreReducer = state => {
@@ -85,9 +94,14 @@ const updateMatch = (match, state) => {
   );
   return { ...state, match: updatedMatch, matches: updatedMatches };
 };
+// const getMatches =(state)=> {
+
+// }
 
 export default function matchReducer(state = matchInitialState, action) {
   switch (action.type) {
+    case SET_MATCHES:
+      return setMatches(state, action.matches);
     case SET_USER:
       return setUser(state, action.user);
     case INCREMENT_HOME_SCORE:

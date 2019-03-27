@@ -10,7 +10,8 @@ import MatchContext from "./store/match-context";
 import MainNavigation from "./components/Routing/MainNavigation";
 
 export default function App(props) {
-  console.log("document.cookie", document.cookie);
+  const context = useContext(MatchContext);
+  console.log("context", context);
   function getCook(cookiename) {
     // Get name followed by anything except a semicolon
     var cookiestring = RegExp("" + cookiename + "[^;]+").exec(document.cookie);
@@ -23,7 +24,6 @@ export default function App(props) {
   //Sample usage
   var cookieValue = getCook("sid");
   console.log("cookieValue", cookieValue);
-  const context = useContext(MatchContext);
   return (
     <ReadyState>
       <Router>

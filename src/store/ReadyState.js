@@ -15,7 +15,9 @@ import {
   REGISTER_USER,
   LOGIN_USER,
   LOGOUT_USER,
-  SET_USER
+  SET_USER,
+  GET_MATCHES,
+  SET_MATCHES
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
 const API_URL = "//localhost:8080/api/ver0001";
@@ -66,6 +68,12 @@ const ReadyState = props => {
     console.log("ReadyState setUser 66 user", user);
     return dispatch({ type: SET_USER, user: user });
   };
+  const getMatches = () => {
+    return dispatch({ type: GET_MATCHES });
+  };
+  const setMatches = matches => {
+    return dispatch({ type: SET_MATCHES, matches: matches });
+  };
 
   // const signIn = (authInfo, history) => async dispatch => {
   //   authInfo.withCredentials = true;
@@ -95,7 +103,9 @@ const ReadyState = props => {
         loginUser: loginUser,
         logoutUser: logoutUser,
         registerUser: registerUser,
-        setUser: setUser
+        setUser: setUser,
+        getMatches: getMatches,
+        setMatches: setMatches
       }}
     >
       {props.children}
