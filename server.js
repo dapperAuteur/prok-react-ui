@@ -14,9 +14,9 @@ io.on("connection", socket => {
   console.log("server 14 User connected");
   // console.log("socket", socket);
 
-  socket.on("change state", state => {
-    // console.log("server 18 Color Changed to: ", state);
-    io.sockets.emit("update matches", state);
+  socket.on("update-matches", updatedMatches => {
+    io.sockets.emit("updated-matches", updatedMatches);
+    console.log("matches.length", updatedMatches.length);
   });
 
   socket.on("disconnect", () => {

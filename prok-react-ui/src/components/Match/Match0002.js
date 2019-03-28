@@ -33,23 +33,39 @@ export default function Match002(props) {
   } = match;
 
   useEffect(() => {
-    return () => {
-      document.title = `Home Team: ${homeTeamScore} vs Away Team: ${awayTeamScore}`;
-      if (balls === 3) {
-        console.log(balls, " balls, now walk");
-        resetCount();
-      }
-      if (fouls === 3 || strikes === 2) {
-        console.log("strikes or fouls");
-        incrementOuts();
-        // resetCount();
-      }
-      if (outs === 2) {
-        console.log("outs", outs);
-        incrementInning();
-      }
-    };
-  });
+    if (balls === 4) {
+      console.log(balls, " balls, now walk");
+      resetCount();
+    }
+  }, [balls]);
+
+  useEffect(() => {
+    if (strikes === 3) {
+      console.log("strikes");
+      incrementOuts();
+      resetCount();
+    }
+  }, [strikes]);
+
+  useEffect(() => {
+    if (fouls === 3) {
+      console.log(" fouls");
+      incrementOuts();
+      resetCount();
+    }
+  }, [fouls]);
+
+  useEffect(() => {
+    if (outs === 3) {
+      console.log("outs", outs);
+      incrementOuts();
+      resetCount();
+    }
+  }, [outs]);
+
+  useEffect(() => {
+    document.title = `Home Team: ${homeTeamScore} vs Away Team: ${awayTeamScore}`;
+  }, []);
 
   return (
     <div>

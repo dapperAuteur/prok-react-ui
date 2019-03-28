@@ -51,20 +51,29 @@ export default function Match() {
   }
 
   function handleSubmit() {}
+  useEffect(() => {
+    if (balls === 4) {
+      console.log("balls, now walk", balls);
+      resetMatch();
+    }
+  }, [balls]);
+
+  useEffect(() => {
+    if (fouls === 4) {
+      incrementOuts();
+      resetMatch();
+    }
+  }, [fouls]);
 
   useEffect(() => {
     document.title = `Home: ${homeState} vs Away: ${awayState}`;
-    if (fouls === 4 || strikes === 3) {
+    if (strikes === 3) {
       resetMatch();
       incrementOuts();
     }
     if (outs === 3) {
       setInning(currentInning + 1);
       setOuts(0);
-    }
-    if (balls === 4) {
-      console.log("balls, now walk", balls);
-      resetMatch();
     }
   });
 

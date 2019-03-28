@@ -11,7 +11,8 @@ const signOut = async => {
 
 export default function MainNavigation(props) {
   const context = useContext(MatchContext);
-  const { createMatch, currentUser } = context;
+  const { createMatch, currentUser, matches } = context;
+  // console.log("matches", matches);
   // console.log("currentUser", currentUser);
   // console.log("createMatch", createMatch);
   return (
@@ -25,7 +26,7 @@ export default function MainNavigation(props) {
             <NavLink to="/match">Match</NavLink>
           </li>
           <li>
-            <NavLink to="/matches">Matches</NavLink>
+            <NavLink to="/matches">Matches {matches.length}</NavLink>
           </li>
           <li>
             <button onClick={createMatch}>Create Match</button>

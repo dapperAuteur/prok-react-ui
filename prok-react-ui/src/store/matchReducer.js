@@ -77,12 +77,15 @@ const resetCount = state => {
   return { ...state, match: updatedMatch };
 };
 const createNewMatch = state => {
-  let updatedMatches = state.matches;
+  // console.log("state", state.state);
+  let updatedMatches = state.state.matches;
+  // console.log("updatedMatches", updatedMatches);
+  updatedMatches.push(matchInitialState.match);
   console.log("updatedMatches", updatedMatches);
   return {
     ...state,
     match: matchInitialState.match,
-    matches: updatedMatches.push(matchInitialState.match)
+    matches: updatedMatches
   };
 };
 const updateMatch = (match, state) => {
@@ -93,9 +96,6 @@ const updateMatch = (match, state) => {
   );
   return { ...state, match: updatedMatch, matches: updatedMatches };
 };
-// const getMatches =(state)=> {
-
-// }
 
 export default function matchReducer(state = matchInitialState, action) {
   switch (action.type) {
