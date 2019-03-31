@@ -1,0 +1,19 @@
+.single-match {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.score-board {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.stats {
+  align-self: center;
+}
+
+.match-title {
+  align-self: center;
+  text-align: center;
+}

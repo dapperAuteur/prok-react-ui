@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState } from "react";
 // import { login } from "./../../actions/securityActions";
 import MatchContext from "./../../store/match-context";
 import axios from "axios";
@@ -8,10 +8,9 @@ axios.defaults.withCredentials = true;
 
 export default function Register(props) {
   const context = useContext(MatchContext);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const username = useRef(null);
-  const password = useRef(null);
-  // console.log("context", context);
 
   // componentWillReceiveProps(nextProps) {
   //   // if (nextProps.security.validToken) {
@@ -41,8 +40,8 @@ export default function Register(props) {
   function onSubmit(e) {
     e.preventDefault();
     const signUpRequest = {
-      username: username.current.value,
-      password: password.current.value
+      username: username,
+      password: password
     };
     console.log("signUpRequest 55", signUpRequest);
     // this.props.login(signUpRequest);
@@ -65,7 +64,9 @@ export default function Register(props) {
                   })}
                   placeholder="Email Address (Username)"
                   name="username"
-                  ref={username}
+                  autoComplete="off"
+                  onChange={e => setUsername(e.target.value)}
+                  value={username}
                 />
                 {errors.username && (
                   <div className="invalid-feedback"> {errors.username}</div>
@@ -79,7 +80,9 @@ export default function Register(props) {
                   })}
                   placeholder="Password"
                   name="password"
-                  ref={password}
+                  autoComplete="off"
+                  onChange={e => setPassword(e.target.value)}
+                  value={password}
                 />
                 {errors.password && (
                   <div className="invalid-feedback"> {errors.password}</div>

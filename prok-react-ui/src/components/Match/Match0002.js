@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import MatchContext from "./../../store/match-context";
 import { matchInitialState } from "../../store/DefaultStates";
+import "./Match.css";
+import KickballTicker from "../Ticker/KickballTicker";
 
 export default function Match002(props) {
   const context = useContext(MatchContext);
@@ -32,6 +34,8 @@ export default function Match002(props) {
     outs
   } = match;
 
+  const matchTitle = `${awayTeamScore} - ${homeTeamScore}`;
+
   useEffect(() => {
     if (balls === 4) {
       console.log(balls, " balls, now walk");
@@ -48,7 +52,7 @@ export default function Match002(props) {
   }, [strikes]);
 
   useEffect(() => {
-    if (fouls === 3) {
+    if (fouls === 4) {
       console.log(" fouls");
       incrementOuts();
       resetCount();
@@ -64,28 +68,33 @@ export default function Match002(props) {
   }, [outs]);
 
   useEffect(() => {
-    document.title = `Home Team: ${homeTeamScore} vs Away Team: ${awayTeamScore}`;
+    document.title = matchTitle;
   }, []);
 
   return (
-    <div>
-      <h1>ProKickballer</h1>
-      <div>
-        <h2>Game Status</h2>
-        <h3>Inning: {innings[currentInning]}</h3>
+    <div className="single-match">
+      <h1 className="match-title">ProKickballer</h1>
+      <div className="stats">
+        <h2 className="match-title">{matchTitle}</h2>
+        <h3 className="match-title">Inning: {innings[currentInning]}</h3>
         <button onClick={incrementBalls}>Balls: {balls}</button>
         <button onClick={incrementStrikes}>Strikes: {strikes}</button>
         <button onClick={incrementFouls}>Fouls: {fouls}</button>
         <button onClick={incrementOuts}>Outs: {outs}</button>
       </div>
-      <div>
-        <h3>{"Home Team"}</h3>
-        <button onClick={incrementHomeScore}>Score: {homeTeamScore}</button>
+      <div className="score-board">
+        <div className="score">
+          <button onClick={incrementHomeScore}>
+            <h3>{"Home Team"}</h3>Score: {homeTeamScore}
+          </button>
+        </div>
+        <div className="score">
+          <button onClick={incrementAwayScore}>
+            <h3>{"Away Team"}</h3>Score: {awayTeamScore}
+          </button>
+        </div>
       </div>
-      <div>
-        <h3>{"Away Team"}</h3>
-        <button onClick={incrementAwayScore}>Score: {awayTeamScore}</button>
-      </div>
+      <KickballTicker />
     </div>
   );
 }

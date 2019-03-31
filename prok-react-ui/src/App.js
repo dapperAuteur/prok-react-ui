@@ -46,24 +46,26 @@ export default function App(props) {
   //   });
   // }, [matches]);
   return (
-    <ReadyState>
-      <Router>
-        <MainNavigation />
-        <Switch>
-          <Route path="/" exact />
-          <Route path="/match" component={Match0002} exact />
-          <Route
-            path="/matches"
-            component={() => <Matches props={matches} />}
-            exact
-          />
-          <Route path="/sign-in" component={Login} exact />
-          <Route path="/sign-up" component={Register} exact />
-          <div>
-            <button onClick={context.createNewMatch}>Create New Match</button>
-          </div>
-        </Switch>
-      </Router>
-    </ReadyState>
+    <div className="gradient-background">
+      <ReadyState className="gradient-background">
+        <Router>
+          <MainNavigation />
+          <Switch>
+            <Route path="/" exact />
+            <Route path="/match" component={Match0002} exact />
+            <Route
+              path="/matches"
+              component={() => <Matches props={matches} />}
+              exact
+            />
+            <Route path="/sign-in" component={Login} exact />
+            <Route path="/sign-up" component={Register} exact />
+            <div>
+              <button onClick={context.createNewMatch}>Create New Match</button>
+            </div>
+          </Switch>
+        </Router>
+      </ReadyState>
+    </div>
   );
 }

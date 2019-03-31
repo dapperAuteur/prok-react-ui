@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -30,4 +30,18 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+/* above is react boiler plate */
+/* three columns, green center, thinner black columns on outside */
+.gradient-background {
+  background-color: green;
+  background-image: linear-gradient(
+    to right,
+    #fff,
+    #fff 15%,
+    #50ad3e 25%,
+    #50ad3e 75%,
+    #fff 85%
+  );
 }
