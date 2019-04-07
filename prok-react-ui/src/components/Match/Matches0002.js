@@ -4,10 +4,10 @@ import MatchContext from "../../store/match-context";
 import CurrentMatch from "./CurrentMatch";
 import socketIOClient from "socket.io-client";
 
-const API_URL = "/matches";
+const API_URL = "//localhost:8080/api/ver0001/matches";
 // const API_URL = "https://react-shopping-list.firebaseio.com/matches.json";
 
-export default function Matches(props) {
+export default function Matches0002(props) {
   console.log("props", props);
   const context = useContext(MatchContext);
   const { matches } = context;

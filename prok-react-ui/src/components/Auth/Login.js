@@ -5,7 +5,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 axios.defaults.withCredentials = true;
-
+const API_URL = "/auth/sign-in";
 export default function Login(props) {
   const context = useContext(MatchContext);
   const [errors, setErrors] = useState({});
@@ -15,10 +15,7 @@ export default function Login(props) {
 
   const login = async loginRequest => {
     loginRequest.withCredentials = true;
-    const res = await axios.post(
-      "//localhost:8080/api/ver0001/auth/sign-in",
-      loginRequest
-    );
+    const res = await axios.post(API_URL, loginRequest);
     // console.log("res 41", res.data.session);
     document.cookie = "sid=" + JSON.stringify(res.data.session);
     context.setUser(res.data.session.user);

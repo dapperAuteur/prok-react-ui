@@ -17,3 +17,7 @@
   align-self: center;
   text-align: center;
 }
+
+.score-button {
+  border-radius: 10%;
+}

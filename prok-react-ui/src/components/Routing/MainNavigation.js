@@ -4,9 +4,11 @@ import MatchContext from "./../../store/match-context";
 import axios from "axios";
 
 import "./MainNavigation.css";
-import Axios from "axios";
+// import Axios from "axios";
+
+const API_URL = "/auth/sign-out";
 const signOut = async => {
-  const res = axios.post("//localhost:8080/api/ver0001/auth/sign-out");
+  const res = axios.post(API_URL);
 };
 
 export default function MainNavigation(props) {

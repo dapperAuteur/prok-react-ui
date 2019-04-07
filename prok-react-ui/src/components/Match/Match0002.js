@@ -84,12 +84,12 @@ export default function Match002(props) {
       </div>
       <div className="score-board">
         <div className="score">
-          <button onClick={incrementHomeScore}>
+          <button className="score-button" onClick={incrementHomeScore}>
             <h3>{"Home Team"}</h3>Score: {homeTeamScore}
           </button>
         </div>
         <div className="score">
-          <button onClick={incrementAwayScore}>
+          <button className="score-button" onClick={incrementAwayScore}>
             <h3>{"Away Team"}</h3>Score: {awayTeamScore}
           </button>
         </div>

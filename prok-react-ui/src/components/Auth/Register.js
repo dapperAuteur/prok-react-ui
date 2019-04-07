@@ -5,6 +5,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 axios.defaults.withCredentials = true;
+const API_URL = "/auth/sign-up";
 
 export default function Register(props) {
   const context = useContext(MatchContext);
@@ -26,10 +27,7 @@ export default function Register(props) {
   const signUp = async signUpRequest => {
     signUpRequest.withCredentials = true;
     // console.log("signUpRequest", signUpRequest);
-    const res = await axios.post(
-      "//localhost:8080/api/ver0001/auth/sign-up",
-      signUpRequest
-    );
+    const res = await axios.post(API_URL, signUpRequest);
     // console.log("res", res);
     // console.log("res 41", res.data.session);
     document.cookie = "sid=" + JSON.stringify(res.data.session);
