@@ -25,6 +25,9 @@ export default function MainNavigation(props) {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
+            <NavLink to="/players">Players</NavLink>
+          </li>
+          <li>
             <NavLink to="/match">Match</NavLink>
           </li>
           <li>
