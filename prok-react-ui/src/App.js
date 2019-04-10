@@ -10,7 +10,8 @@ import ReadyState from "./store/ReadyState";
 import MatchContext from "./store/match-context";
 import MainNavigation from "./components/Routing/MainNavigation";
 import socketIOClient from "socket.io-client";
-import Player from "./components/Match/Players/Player";
+import Player from "./components/Players/Player";
+import Players from "./components/Players/Players";
 const API_URL = "//localhost:8080/api/ver0001/matches";
 
 export default function App(props) {
@@ -53,7 +54,8 @@ export default function App(props) {
           <MainNavigation />
           <Switch>
             <Route path="/" exact />
-            <Route path="/players" component={Player} exact />
+            <Route path="/player" component={Player} exact />
+            <Route path="/players" component={Players} exact />
             <Route path="/match" component={Match0002} exact />
             <Route
               path="/matches"
