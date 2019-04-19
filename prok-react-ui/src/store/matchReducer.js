@@ -77,9 +77,9 @@ const resetCount = state => {
   return { ...state, match: updatedMatch };
 };
 const createNewMatch = state => {
-  // console.log("state", state.state);
+  console.log("state", state.state);
   let updatedMatches = state.state.matches;
-  // console.log("updatedMatches", updatedMatches);
+  console.log("updatedMatches", updatedMatches);
   updatedMatches.push(matchInitialState.match);
   console.log("updatedMatches", updatedMatches);
   return {

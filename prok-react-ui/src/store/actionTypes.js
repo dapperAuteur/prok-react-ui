@@ -23,3 +23,5 @@ export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const SET_USER = "SET_USER";
 export const GET_MATCHES = "GET_MATCHES";
+// player actions
+export const GET_PLAYERS = "GET_PLAYERS";

@@ -12,6 +12,8 @@ import MainNavigation from "./components/Routing/MainNavigation";
 import socketIOClient from "socket.io-client";
 import Player from "./components/Players/Player";
 import Players from "./components/Players/Players";
+import Example05 from "./Example05";
+import Matches0003 from "./components/Match/Matches0003";
 const API_URL = "//localhost:8080/api/ver0001/matches";
 
 export default function App(props) {
@@ -51,7 +53,7 @@ export default function App(props) {
     <div className="gradient-background">
       <ReadyState className="gradient-background">
         <Router>
-          <MainNavigation />
+          <MainNavigation matches={matches} />
           <Switch>
             <Route path="/" exact />
             <Route path="/player" component={Player} exact />
@@ -59,7 +61,7 @@ export default function App(props) {
             <Route path="/match" component={Match0002} exact />
             <Route
               path="/matches"
-              component={() => <Matches props={matches} />}
+              component={() => <Matches0003 props={matches} />}
               exact
             />
             <Route path="/sign-in" component={Login} exact />

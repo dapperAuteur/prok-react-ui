@@ -1,6 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import matchReducer from "./matchReducer";
 import MatchContext from "./match-context";
+import axios from "axios";
 import {
   INCREMENT_HOME_SCORE,
   INCREMENT_AWAY_SCORE,
@@ -17,12 +18,17 @@ import {
   LOGOUT_USER,
   SET_USER,
   GET_MATCHES,
-  SET_MATCHES
+  SET_MATCHES,
+  GET_PLAYERS
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
-const API_URL = "//localhost:8080/api/ver0001";
+const API_URL = "/matches";
+const matches = matchInitialState.matches;
 
 const ReadyState = props => {
+  const context = useContext(MatchContext);
+  const [matches, setCurrentMatches] = useState(matches);
+  // console.log("context", context);
   // console.log("ReadyState 8 props", props);
   const [matchState, dispatch] = useReducer(matchReducer, matchInitialState);
   const incrementHomeScore = () => {
@@ -47,6 +53,7 @@ const ReadyState = props => {
     return dispatch({ type: INCREMENT_CURRENT_INNING });
   };
   const createMatch = () => {
+    console.log("object", context);
     return dispatch({ type: CREATE_NEW_MATCH });
   };
   const updateMatch = () => {
@@ -72,7 +79,12 @@ const ReadyState = props => {
     return dispatch({ type: GET_MATCHES });
   };
   const setMatches = matches => {
+    console.log("matches", matches);
     return dispatch({ type: SET_MATCHES, matches: matches });
+  };
+
+  const getPlayers = () => {
+    return dispatch({ type: GET_PLAYERS });
   };
 
   // const signIn = (authInfo, history) => async dispatch => {
@@ -82,6 +94,15 @@ const ReadyState = props => {
   //     dispatch(loginUser(res.data));
   //   });
   // };
+
+  useEffect(() => {
+    axios.get(API_URL).then(result => {
+      console.log("result", result);
+      const matchesAPI = result.data;
+      console.log("matchesAPI", matchesAPI);
+      setMatches(matchesAPI);
+    });
+  }, [matches]);
 
   return (
     <MatchContext.Provider
@@ -105,7 +126,8 @@ const ReadyState = props => {
         registerUser: registerUser,
         setUser: setUser,
         getMatches: getMatches,
-        setMatches: setMatches
+        setMatches: setMatches,
+        getPlayers: getPlayers
       }}
     >
       {props.children}
