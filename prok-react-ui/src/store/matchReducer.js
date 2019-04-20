@@ -120,7 +120,9 @@ export default function matchReducer(state = matchInitialState, action) {
     case RESET_COUNT:
       return resetCount(state);
     case CREATE_NEW_MATCH:
-      return createNewMatch(state);
+      console.log("action", action);
+      console.log("state", state);
+      return createNewMatch(state, action.payload);
     case INCREMENT_CURRENT_INNING:
       return incrementCurrentInning(state);
     default:

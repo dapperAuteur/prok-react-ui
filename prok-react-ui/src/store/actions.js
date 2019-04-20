@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_PLAYERS } from "./actionTypes";
+import { GET_MATCHES, GET_PLAYERS } from "./actionTypes";
 const API_URL = "/players";
 
 export const getPlayersAction = async dispatch => {
@@ -11,4 +11,13 @@ export const getPlayersAction = async dispatch => {
   //   console.log("err", err);
   // });
   return res;
+};
+
+export const getMatchesAction = () => {
+  console.log("getMatchesAction");
+  const res = axios.get("/matches").then(foundMatches => {
+    console.log("foundMatches", foundMatches);
+    return foundMatches;
+    // dispatch({ type: GET_MATCHES, payload: foundMatches });
+  });
 };

@@ -16,7 +16,8 @@ io.on("connection", socket => {
 
   socket.on("update-matches", updatedMatches => {
     io.sockets.emit("updated-matches", updatedMatches);
-    console.log("matches.length", updatedMatches.length);
+    console.log("updatedMatches", updatedMatches);
+    console.log("updatedMatches.length", updatedMatches.length);
   });
 
   socket.on("disconnect", () => {

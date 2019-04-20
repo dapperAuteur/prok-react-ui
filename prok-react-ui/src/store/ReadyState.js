@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import matchReducer from "./matchReducer";
 import MatchContext from "./match-context";
 import axios from "axios";
+import * as apiCall from "./actions";
+import socketIOClient from "socket.io-client";
 import {
   INCREMENT_HOME_SCORE,
   INCREMENT_AWAY_SCORE,
@@ -23,10 +25,11 @@ import {
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
 const API_URL = "/matches";
-const matches = matchInitialState.matches;
+// let matches = matchInitialState.matches;
 
 const ReadyState = props => {
   const context = useContext(MatchContext);
+  const socket = socketIOClient(context.endpoint);
   const [matches, setCurrentMatches] = useState(matches);
   // console.log("context", context);
   // console.log("ReadyState 8 props", props);
@@ -52,13 +55,6 @@ const ReadyState = props => {
   const incrementInning = () => {
     return dispatch({ type: INCREMENT_CURRENT_INNING });
   };
-  const createMatch = () => {
-    console.log("object", context);
-    return dispatch({ type: CREATE_NEW_MATCH });
-  };
-  const updateMatch = () => {
-    return dispatch({ type: UPDATE_MATCH });
-  };
   const resetCount = () => {
     return dispatch({ type: RESET_COUNT });
   };
@@ -75,7 +71,26 @@ const ReadyState = props => {
     // console.log("ReadyState setUser 66 user", user);
     return dispatch({ type: SET_USER, user: user });
   };
+  const createMatch = () => {
+    let newMatch = {};
+    console.log("object", context);
+    axios.post("/matches").then(result => {
+      console.log("result", result);
+      newMatch = result.data;
+      console.log("newMatch", newMatch);
+    });
+    return dispatch({ type: CREATE_NEW_MATCH, payload: newMatch });
+  };
+  const updateMatch = () => {
+    return dispatch({ type: UPDATE_MATCH });
+  };
   const getMatches = () => {
+    axios.get("/matches").then(result => {
+      console.log("result", result);
+      const matchesAPI = result.data;
+      console.log("matchesAPI", matchesAPI);
+      setMatches(matchesAPI);
+    });
     return dispatch({ type: GET_MATCHES });
   };
   const setMatches = matches => {
@@ -95,13 +110,37 @@ const ReadyState = props => {
   //   });
   // };
 
+  const sendToSocketIO = () => {
+    // const socket = socketIOClient(context.endpoint);
+    console.log("matches", matches);
+    socket.emit("update-matches", matches);
+  };
   useEffect(() => {
-    axios.get(API_URL).then(result => {
-      console.log("result", result);
-      const matchesAPI = result.data;
-      console.log("matchesAPI", matchesAPI);
-      setMatches(matchesAPI);
-    });
+    // const res = apiCall.getMatchesAction();
+    // console.log("res", res);
+    // axios.get(API_URL).then(result => {
+    //   console.log("result", result);
+    //   const matchesAPI = result.data;
+    //   console.log("matchesAPI", matchesAPI);
+    //   setMatches(matchesAPI);
+    // });
+    getMatches();
+  }, [matches]);
+  useEffect(() => {
+    return () => {
+      sendToSocketIO();
+      console.log("matches", matches);
+      socket.on("updated-matches", serverEmittedMatches => {
+        console.log("serverEmittedMatches", serverEmittedMatches);
+        if (serverEmittedMatches.length !== 0) {
+          console.log(
+            "serverEmittedMatches.length",
+            serverEmittedMatches.length
+          );
+          setMatches(serverEmittedMatches);
+        }
+      });
+    };
   }, [matches]);
 
   return (
