@@ -71,15 +71,36 @@ const ReadyState = props => {
     // console.log("ReadyState setUser 66 user", user);
     return dispatch({ type: SET_USER, user: user });
   };
-  const createMatch = () => {
+  const createMatchNow = () => {
     let newMatch = {};
-    console.log("object", context);
+    console.log("context from createMatch()", context);
     axios.post("/matches").then(result => {
       console.log("result", result);
       newMatch = result.data;
       console.log("newMatch", newMatch);
+      return dispatch({ type: CREATE_NEW_MATCH, payload: newMatch });
     });
-    return dispatch({ type: CREATE_NEW_MATCH, payload: newMatch });
+  };
+  const createMatch = () => {
+    let newMatch = {};
+    let matches = [];
+    axios.all([createMatchNow(), getMatches()]).then(
+      axios.spread((newMatch, matches) => {
+        console.log("newMatch", newMatch);
+        console.log("matches", matches);
+        newMatch = newMatch.data;
+        matches = matches.data;
+        let createMatchPayload = {
+          newMatch: newMatch,
+          matches: matches
+        };
+        console.log("createMatchPayload", createMatchPayload);
+        return dispatch({
+          type: CREATE_NEW_MATCH,
+          payload: createMatchPayload
+        });
+      })
+    );
   };
   const updateMatch = () => {
     return dispatch({ type: UPDATE_MATCH });

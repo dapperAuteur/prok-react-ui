@@ -12,7 +12,7 @@ const signOut = async => {
 };
 
 export default function MainNavigation(props) {
-  console.log("props", props.matches);
+  console.log("props.matches", props.matches);
   const context = useContext(MatchContext);
   console.log("context", context);
   const { createMatch, currentUser, matches } = context;

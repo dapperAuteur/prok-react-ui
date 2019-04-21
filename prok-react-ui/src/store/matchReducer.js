@@ -76,15 +76,29 @@ const resetCount = state => {
   updatedMatch.fouls = 0;
   return { ...state, match: updatedMatch };
 };
-const createNewMatch = state => {
-  console.log("state", state.state);
-  let updatedMatches = state.state.matches;
+const createNewMatch = (state, payload) => {
+  console.log("state.state", state.state);
+  console.log("payload", payload);
+  // let updatedMatches = state.state.matches;
+  // keep for off-line createNewMatch()
+  let updatedMatches = [];
+  let newMatch = {};
+  if (!Object.hasOwnProperty("_id")) {
+    updatedMatches.push(matchInitialState.match);
+    newMatch = matchInitialState.match;
+  } else {
+    updatedMatches = payload.matches;
+    newMatch = payload.newMatch;
+    console.log("updatedMatches", updatedMatches);
+    console.log("newMatch", newMatch);
+  }
+
   console.log("updatedMatches", updatedMatches);
-  updatedMatches.push(matchInitialState.match);
-  console.log("updatedMatches", updatedMatches);
+  console.log("newMatch", newMatch);
+
   return {
     ...state,
-    match: matchInitialState.match,
+    match: newMatch,
     matches: updatedMatches
   };
 };
