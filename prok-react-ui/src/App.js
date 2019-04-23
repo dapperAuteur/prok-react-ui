@@ -15,7 +15,7 @@ export default function App(props) {
   // console.log("props", props);
   const context = useContext(MatchContext);
   const { matches } = context;
-  // console.log("context", context);
+  console.log("context", context);
   return (
     <div className="gradient-background">
       <ReadyState className="gradient-background">

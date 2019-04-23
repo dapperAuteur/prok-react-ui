@@ -9,14 +9,15 @@ import "./MainNavigation.css";
 const API_URL = "/auth/sign-out";
 const signOut = async => {
   const res = axios.post(API_URL);
+  console.log("res", res);
 };
 
 export default function MainNavigation(props) {
-  console.log("props.matches", props.matches);
+  // console.log("props.matches", props.matches);
   const context = useContext(MatchContext);
-  console.log("context", context);
+  // console.log("context", context);
   const { createMatch, currentUser, matches } = context;
-  console.log("matches", matches);
+  // console.log("matches", matches);
   // console.log("currentUser", currentUser);
   // console.log("createMatch", createMatch);
   return (

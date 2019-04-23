@@ -30,10 +30,12 @@ const API_URL = "/matches";
 const ReadyState = props => {
   const context = useContext(MatchContext);
   const socket = socketIOClient(context.endpoint);
-  const [matches, setCurrentMatches] = useState(matches);
+  // const [matches, setCurrentMatches] = useState(matches);
   // console.log("context", context);
   // console.log("ReadyState 8 props", props);
   const [matchState, dispatch] = useReducer(matchReducer, matchInitialState);
+  console.log("matchState", matchState);
+  const matches = matchState.matches;
   const incrementHomeScore = () => {
     return dispatch({ type: INCREMENT_HOME_SCORE });
   };
@@ -118,11 +120,11 @@ const ReadyState = props => {
   };
   const getMatches = () => {
     return axios.get("/matches").then(result => {
-      console.log("result", result);
+      // console.log("result", result);
       const matchesAPI = result.data;
-      console.log("matchesAPI", matchesAPI);
+      // console.log("matchesAPI", matchesAPI);
       setMatches(matchesAPI);
-      return dispatch({ type: GET_MATCHES });
+      // return dispatch({ type: GET_MATCHES });
     });
   };
   const setMatches = matches => {
@@ -148,17 +150,21 @@ const ReadyState = props => {
     socket.emit("update-matches", matches);
   };
   useEffect(() => {
-    // const res = apiCall.getMatchesAction();
-    // console.log("res", res);
-    // axios.get(API_URL).then(result => {
-    //   console.log("result", result);
-    //   const matchesAPI = result.data;
-    //   console.log("matchesAPI", matchesAPI);
-    //   setMatches(matchesAPI);
-    // });
     getMatches();
-  }, [matches]);
+    console.log("getMatches()");
+    // sendToSocketIO();
+    // console.log("matches", matches);
+    // socket.on("updated-matches", serverEmittedMatches => {
+    //   console.log("serverEmittedMatches", serverEmittedMatches);
+    //   if (serverEmittedMatches.length !== 0) {
+    //     console.log("serverEmittedMatches.length", serverEmittedMatches.length);
+    //     setMatches(serverEmittedMatches);
+    //   }
+    // });
+  }, [matches, matchState]);
   useEffect(() => {
+    getMatches();
+    console.log("getMatches()");
     return () => {
       sendToSocketIO();
       console.log("matches", matches);
@@ -173,7 +179,7 @@ const ReadyState = props => {
         }
       });
     };
-  }, [matches]);
+  }, [matches, matchState]);
 
   return (
     <MatchContext.Provider

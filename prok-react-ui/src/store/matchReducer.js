@@ -15,12 +15,12 @@ import {
   SET_MATCHES
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
-console.log("matchInitialState", matchInitialState);
+// console.log("matchInitialState", matchInitialState);
 const setUser = (state, user) => {
-  console.log("matchReducer 17 user", user);
-  console.log("state", state);
+  // console.log("matchReducer 17 user", user);
+  // console.log("state", state);
   let updatedState = state;
-  console.log("updatedState", updatedState);
+  // console.log("updatedState", updatedState);
   // updatedState.currentUser = user;
   updatedState.currentUser = user;
   updatedState.match.scoreKeeper = user._id;
@@ -82,25 +82,26 @@ const resetCount = state => {
   return { ...state, match: updatedMatch };
 };
 const createNewMatch = (state, payload) => {
-  console.log("state.state", state);
-  console.log("payload", payload);
+  // console.log("state.state", state);
+  // console.log("payload", payload);
   // let updatedMatches = state.matches;
   // keep for off-line createNewMatch()
   let updatedMatches = [];
   let newMatch = {};
   if (!payload.newMatch.hasOwnProperty("_id")) {
-    console.log("!payload.newMatch.hasOwnProperty(_id)===false");
+    // console.log("!payload.newMatch.hasOwnProperty(_id)===false");
     updatedMatches.push(matchInitialState.match);
     newMatch = matchInitialState.match;
   } else {
     updatedMatches = payload.matches;
     newMatch = payload.newMatch;
-    console.log("updatedMatches", updatedMatches);
-    console.log("newMatch", newMatch);
+    // console.log("updatedMatches", updatedMatches);
+    // console.log("newMatch", newMatch);
   }
 
-  console.log("updatedMatches", updatedMatches);
-  console.log("newMatch", newMatch);
+  // console.log("updatedMatches", updatedMatches);
+  // console.log("newMatch", newMatch);
+  // console.log("state", state);
 
   return {
     ...state,
@@ -118,8 +119,8 @@ const updateMatch = (match, state) => {
 };
 
 export default function matchReducer(state = matchInitialState, action) {
-  console.log("state", state);
-  console.log("matchInitialState", matchInitialState);
+  // console.log("state", state);
+  // console.log("matchInitialState", matchInitialState);
   switch (action.type) {
     case SET_MATCHES:
       return setMatches(state, action.matches);
@@ -142,9 +143,9 @@ export default function matchReducer(state = matchInitialState, action) {
     case RESET_COUNT:
       return resetCount(state);
     case CREATE_NEW_MATCH:
-      console.log("action", action);
-      console.log("action.payload", action.payload);
-      console.log("state", state);
+      // console.log("action", action);
+      // console.log("action.payload", action.payload);
+      // console.log("state", state);
       return createNewMatch(state, action.payload);
     case INCREMENT_CURRENT_INNING:
       return incrementCurrentInning(state);
