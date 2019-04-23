@@ -74,22 +74,24 @@ const ReadyState = props => {
   const createMatchNow = () => {
     let newMatch = {};
     console.log("context from createMatch()", context);
-    axios.post("/matches").then(result => {
+    return axios.post("/matches").then(result => {
       console.log("result", result);
       newMatch = result.data;
       console.log("newMatch", newMatch);
-      return dispatch({ type: CREATE_NEW_MATCH, payload: newMatch });
+      // return dispatch({ type: CREATE_NEW_MATCH, payload: newMatch });
+      return newMatch;
     });
   };
   const createMatch = () => {
+    console.log("createMatch axios.all");
     let newMatch = {};
     let matches = [];
-    axios.all([createMatchNow(), getMatches()]).then(
-      axios.spread((newMatch, matches) => {
-        console.log("newMatch", newMatch);
-        console.log("matches", matches);
-        newMatch = newMatch.data;
-        matches = matches.data;
+    axios.all([createMatchNow(), getAllMatches()]).then(
+      axios.spread((newMatchAPI, matchesAPI) => {
+        console.log("newMatchAPI", newMatchAPI);
+        console.log("matchesAPI", matchesAPI);
+        newMatch = newMatchAPI;
+        matches = matchesAPI;
         let createMatchPayload = {
           newMatch: newMatch,
           matches: matches
@@ -105,14 +107,23 @@ const ReadyState = props => {
   const updateMatch = () => {
     return dispatch({ type: UPDATE_MATCH });
   };
+  const getAllMatches = () => {
+    return axios.get("/matches").then(result => {
+      console.log("result", result);
+      const matchesAPI = result.data;
+      console.log("matchesAPI", matchesAPI);
+      return matchesAPI;
+      // return dispatch({ type: GET_MATCHES });
+    });
+  };
   const getMatches = () => {
-    axios.get("/matches").then(result => {
+    return axios.get("/matches").then(result => {
       console.log("result", result);
       const matchesAPI = result.data;
       console.log("matchesAPI", matchesAPI);
       setMatches(matchesAPI);
+      return dispatch({ type: GET_MATCHES });
     });
-    return dispatch({ type: GET_MATCHES });
   };
   const setMatches = matches => {
     console.log("matches", matches);

@@ -15,20 +15,25 @@ import {
   SET_MATCHES
 } from "./actionTypes";
 import { matchInitialState } from "./DefaultStates";
+console.log("matchInitialState", matchInitialState);
 const setUser = (state, user) => {
   console.log("matchReducer 17 user", user);
+  console.log("state", state);
   let updatedState = state;
+  console.log("updatedState", updatedState);
+  // updatedState.currentUser = user;
   updatedState.currentUser = user;
-  updatedState.match.scoreKeeper = user;
+  updatedState.match.scoreKeeper = user._id;
   // console.log("matchReducer 21 updatedState", updatedState);
-  return { state: updatedState };
+  return updatedState;
 };
 const setMatches = (state, matches) => {
-  // console.log("matches", matches);
+  console.log("matches", matches);
+  console.log("state", state);
   let updatedState = state;
   updatedState.matches = matches;
-  // console.log("matchReducer 30 updatedState", updatedState);
-  return { state: updatedState };
+  console.log("matchReducer 35 updatedState", updatedState);
+  return updatedState;
 };
 const incrementAwayScoreReducer = state => {
   let updatedMatch = state.match;
@@ -77,13 +82,14 @@ const resetCount = state => {
   return { ...state, match: updatedMatch };
 };
 const createNewMatch = (state, payload) => {
-  console.log("state.state", state.state);
+  console.log("state.state", state);
   console.log("payload", payload);
-  // let updatedMatches = state.state.matches;
+  // let updatedMatches = state.matches;
   // keep for off-line createNewMatch()
   let updatedMatches = [];
   let newMatch = {};
-  if (!Object.hasOwnProperty("_id")) {
+  if (!payload.newMatch.hasOwnProperty("_id")) {
+    console.log("!payload.newMatch.hasOwnProperty(_id)===false");
     updatedMatches.push(matchInitialState.match);
     newMatch = matchInitialState.match;
   } else {
@@ -112,6 +118,8 @@ const updateMatch = (match, state) => {
 };
 
 export default function matchReducer(state = matchInitialState, action) {
+  console.log("state", state);
+  console.log("matchInitialState", matchInitialState);
   switch (action.type) {
     case SET_MATCHES:
       return setMatches(state, action.matches);
@@ -122,7 +130,7 @@ export default function matchReducer(state = matchInitialState, action) {
     case INCREMENT_AWAY_SCORE:
       return incrementAwayScoreReducer(state);
     case UPDATE_MATCH:
-      return updateMatch(action.match, state);
+      return updateMatch(state, action.match);
     case INCREMENT_BALLS:
       return incrementBalls(state);
     case INCREMENT_STRIKES:
@@ -135,6 +143,7 @@ export default function matchReducer(state = matchInitialState, action) {
       return resetCount(state);
     case CREATE_NEW_MATCH:
       console.log("action", action);
+      console.log("action.payload", action.payload);
       console.log("state", state);
       return createNewMatch(state, action.payload);
     case INCREMENT_CURRENT_INNING:
