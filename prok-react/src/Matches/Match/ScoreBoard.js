@@ -1,7 +1,7 @@
 import React from "react";
 
 const ScoreBoard = scoreBoard => {
-  // console.log("scoreBoard", scoreBoard);
+  console.log("scoreBoard", scoreBoard);
   let {
     homeTeam,
     awayTeam,
@@ -11,7 +11,8 @@ const ScoreBoard = scoreBoard => {
     incrementScore
   } = scoreBoard.scoreBoard;
 
-  let { matchId } = scoreBoard.match;
+  let matchId = scoreBoard.match.matchId;
+  // console.log("scoreBoard.match", scoreBoard.match);
 
   return (
     <div className="score-board">

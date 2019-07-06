@@ -3,10 +3,10 @@ import ScoreBoard from "./ScoreBoard";
 import PitchCount from "./PitchCount";
 
 const Match = props => {
-  // console.log("props", props);
+  console.log("props", props);
 
   const match = {
-    matchId: props.match.matchId,
+    matchId: props.match._id,
     scoreKeeper: props.match.scoreKeeper,
     currentInning: props.match.currentInning
   };

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Match from "./Match/Match";
 
@@ -31,16 +31,6 @@ const Matches = () => {
     setNextMatchId(nextMatchId + 1);
   };
 
-  // const getMatches = useCallback(() => {
-  //   console.log("get matches", matches);
-  //   const res = axios.get("/matches").then(foundMatches => {
-  //     console.log("foundMatches", foundMatches);
-  //     setMatches(foundMatches);
-  //     return foundMatches;
-  //   });
-  // }, [matches]);
-  // getMatches();
-
   const createNewMatch = () => {
     let newMatches = matches;
     setCount(count + 1);
@@ -66,6 +56,7 @@ const Matches = () => {
       return (
         <Match
           key={match._id}
+          matchId={match._id}
           match={match}
           awayScore={awayScore}
           setAwayScore={setAwayScore}
