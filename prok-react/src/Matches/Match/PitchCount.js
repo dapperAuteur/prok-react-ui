@@ -1,7 +1,7 @@
 import React from "react";
 
 const PitchCount = pitchCount => {
-  console.log("pitchCount", pitchCount);
+  // console.log("pitchCount", pitchCount);
   let {
     balls,
     setBalls,
@@ -13,7 +13,7 @@ const PitchCount = pitchCount => {
     setOuts
   } = pitchCount.pitchCount;
   let { matchId, scoreKeeper, currentInning } = pitchCount.match;
-  console.log("matchId", matchId);
+  // console.log("matchId", matchId);
   return (
     <div className="pitch-count">
       <div>

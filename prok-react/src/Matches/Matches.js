@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import axios from "axios";
 import Match from "./Match/Match";
 
 const Matches = () => {
@@ -10,6 +11,7 @@ const Matches = () => {
   const [strikes, setStrikes] = useState(0);
   const [fouls, setFouls] = useState(0);
   const [outs, setOuts] = useState(0);
+  const [count, setCount] = useState(0);
 
   let newMatch = {
     matchId: nextMatchId,
@@ -29,8 +31,19 @@ const Matches = () => {
     setNextMatchId(nextMatchId + 1);
   };
 
+  // const getMatches = useCallback(() => {
+  //   console.log("get matches", matches);
+  //   const res = axios.get("/matches").then(foundMatches => {
+  //     console.log("foundMatches", foundMatches);
+  //     setMatches(foundMatches);
+  //     return foundMatches;
+  //   });
+  // }, [matches]);
+  // getMatches();
+
   const createNewMatch = () => {
     let newMatches = matches;
+    setCount(count + 1);
     // console.log("matches", matches);
     // console.log("nextMatchId", nextMatchId);
     // console.log("newMatch", newMatch);
@@ -44,7 +57,7 @@ const Matches = () => {
     console.log("setHomeScore", setHomeScore);
     setHomeScore(homeScore + 1);
   };
-  console.log("incrementScore", incrementScore);
+  // console.log("incrementScore", incrementScore);
 
   let currentMatches = null;
 
@@ -52,6 +65,7 @@ const Matches = () => {
     currentMatches = matches.map(match => {
       return (
         <Match
+          key={match._id}
           match={match}
           awayScore={awayScore}
           setAwayScore={setAwayScore}
@@ -65,17 +79,30 @@ const Matches = () => {
           setFouls={setFouls}
           outs={outs}
           setOuts={setOuts}
-          key={match.matchId}
         />
       );
     });
+  } else {
+    currentMatches = <h2>No Matches</h2>;
   }
+
+  useEffect(() => {
+    async function getMatches() {
+      const res = await axios("/matches");
+      setMatches(res.data);
+    }
+    getMatches();
+  }, []);
+
+  useEffect(() => {
+    document.title = `${matches.length} matches currently`;
+  }, [matches]);
 
   return (
     <div className="matches">
       <h1>Matches</h1>
       <button onClick={createNewMatch}>Create Match</button>
-      {matches.length > 0 ? currentMatches : null}
+      {currentMatches}
     </div>
   );
 };
