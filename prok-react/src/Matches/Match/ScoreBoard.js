@@ -1,7 +1,7 @@
 import React from "react";
 
 const ScoreBoard = scoreBoard => {
-  console.log("scoreBoard", scoreBoard);
+  // console.log("scoreBoard", scoreBoard);
   let {
     homeTeam,
     awayTeam,
