@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import classnames from "classnames";
 
 axios.defaults.withCredentials = true;
-const API_URL = "/matches";
+const API_URL_MATCHES = "/matches";
+const API_URL_PLAYERS = "/players";
+const API_URL_TEAMS = "/teams";
 
 const errors = {};
 
@@ -22,9 +24,15 @@ const errors = {};
 // };
 
 const CreateMatch = () => {
-  const [scoreKeeper, setScoreKeeper] = useState("");
-  const [homeTeam, setHomeTeam] = useState("");
-  const [awayTeam, setAwayTeam] = useState("");
+  const [scoreKeeper, setScoreKeeper] = useState("commish");
+  const [homeTeam, setHomeTeam] = useState("Home Team");
+  const [awayTeam, setAwayTeam] = useState("Away Team");
+  const [teams, setTeams] = useState([]);
+  const [players, setPlayers] = useState([]);
+
+  // const [scoreKeeper, setScoreKeeper] = useState("5d22970a499e9942a5834873");
+  // const [homeTeam, setHomeTeam] = useState("5c9a9ef3e6814f122a1af324");
+  // const [awayTeam, setAwayTeam] = useState("5c9a9e2be6814f122a1af322");
   // const [homeTeamScore, setHomeTeamScore] = useState(0);
   // const [awayTeamScore, setAayTeamScore] = useState(0);
   // const [balls, setBalls] = useState(0);
@@ -35,7 +43,7 @@ const CreateMatch = () => {
   const submitMatch = async newMatch => {
     console.log("newMatch", newMatch);
     newMatch.withCredentials = true;
-    const res = await axios.post(API_URL, newMatch);
+    const res = await axios.post(API_URL_MATCHES, newMatch);
     console.log("res", res);
     return res;
   };
@@ -50,6 +58,21 @@ const CreateMatch = () => {
     console.log("newMatch inside createNewMatch()", newMatch);
     submitMatch(newMatch);
   };
+
+  useEffect(() => {
+    async function getPlayers() {
+      const res = await axios(API_URL_PLAYERS);
+      console.log("res", res);
+      setPlayers(res.data);
+    }
+    async function getTeams() {
+      const res = await axios(API_URL_TEAMS);
+      console.log("res", res);
+      setTeams(res.data);
+    }
+    getPlayers();
+    getTeams();
+  }, []);
 
   return (
     <div className="match">

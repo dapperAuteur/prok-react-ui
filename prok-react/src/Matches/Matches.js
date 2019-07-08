@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Match from "./Match/Match";
 
+const API_URL_MATCHES = "/matches";
+
 const Matches = () => {
   const [matches, setMatches] = useState([]);
   const [showAllMatches, setShowAllMatches] = useState(true);
@@ -62,7 +64,7 @@ const Matches = () => {
 
   useEffect(() => {
     async function getMatches() {
-      const res = await axios("/matches");
+      const res = await axios(API_URL_MATCHES);
       if (showAllMatches) {
         setMatches(res.data);
       }
