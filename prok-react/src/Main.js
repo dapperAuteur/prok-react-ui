@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import axios from "axios";
 import App from "./App";
 import Match from "./Matches/Match/Match";
 import Matches from "./Matches/Matches";
@@ -7,7 +8,17 @@ import CreateMatch from "./Matches/Match/CreateMatch";
 import SignUp from "./Auth/SignUp";
 import SignIn from "./Auth/SignIn";
 
+const API_URL = "/auth/sign-out";
+
 function NavBar() {
+  const [currentUser, setCurrentUser] = useState({});
+  const signOut = async currentUser => {
+    const res = await axios.post(API_URL, currentUser);
+    document.cookie = "sid=" + JSON.stringify(res.data.session);
+    setCurrentUser(res.data.session);
+    console.log("res", res);
+    console.log("currentUser", currentUser);
+  };
   return (
     <div className="nav-bar">
       <nav>
@@ -20,6 +31,11 @@ function NavBar() {
           </li>
           <li>
             <Link to="/sign-up">Sign Up</Link>
+          </li>
+          <li>
+            <Link to="/" onClick={() => signOut()}>
+              Sign Out
+            </Link>
           </li>
           <li>
             <Link to="/matches">Matches</Link>
