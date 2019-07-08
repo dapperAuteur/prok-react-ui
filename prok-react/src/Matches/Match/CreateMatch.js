@@ -3,7 +3,7 @@ import axios from "axios";
 import classnames from "classnames";
 
 axios.defaults.withCredentials = true;
-const API_URL = "/auth/sign-in";
+const API_URL = "/matches";
 
 const errors = {};
 
@@ -32,8 +32,12 @@ const CreateMatch = () => {
   // const [fouls, setFouls] = useState(0);
   // const [outs, setOuts] = useState(0);
 
-  const submitMatch = newMatch => {
+  const submitMatch = async newMatch => {
     console.log("newMatch", newMatch);
+    newMatch.withCredentials = true;
+    const res = await axios.post(API_URL, newMatch);
+    console.log("res", res);
+    return res;
   };
 
   const createNewMatch = e => {

@@ -4,6 +4,8 @@ import App from "./App";
 import Match from "./Matches/Match/Match";
 import Matches from "./Matches/Matches";
 import CreateMatch from "./Matches/Match/CreateMatch";
+import SignUp from "./Auth/SignUp";
+import SignIn from "./Auth/SignIn";
 
 function NavBar() {
   return (
@@ -12,6 +14,12 @@ function NavBar() {
         <ul>
           <li>
             <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/sign-in">Sign In</Link>
+          </li>
+          <li>
+            <Link to="/sign-up">Sign Up</Link>
           </li>
           <li>
             <Link to="/matches">Matches</Link>
@@ -35,6 +43,8 @@ const Main = () => {
         <NavBar />
         <Route path="/" exact />
         <Route path="/matches" exact component={Matches} />
+        <Route path="/sign-up" exact component={SignUp} />
+        <Route path="/sign-in" exact component={SignIn} />
         <Route path="/match/create-match" exact component={CreateMatch} />
         <Route path="/match/matchId/edit" exact component={CreateMatch} />
         <Route path="/my-current/match" exact component={Match} />
