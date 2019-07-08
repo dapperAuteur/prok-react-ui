@@ -4,44 +4,12 @@ import Match from "./Match/Match";
 
 const Matches = () => {
   const [matches, setMatches] = useState([]);
-  const [nextMatchId, setNextMatchId] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
   const [homeScore, setHomeScore] = useState(0);
   const [balls, setBalls] = useState(0);
   const [strikes, setStrikes] = useState(0);
   const [fouls, setFouls] = useState(0);
   const [outs, setOuts] = useState(0);
-  const [count, setCount] = useState(0);
-
-  let newMatch = {
-    matchId: nextMatchId,
-    scoreKeeper: "the commish",
-    currentInning: "Top 1st",
-    homeTeam: "homeTeam",
-    awayTeam: "awayTeam",
-    homeTeamScore: 0,
-    awayTeamScore: 0,
-    balls: 0,
-    strikes: 0,
-    fouls: 0,
-    outs: 0
-  };
-
-  const createNewMatchId = () => {
-    setNextMatchId(nextMatchId + 1);
-  };
-
-  const createNewMatch = () => {
-    let newMatches = matches;
-    setCount(count + 1);
-    // console.log("matches", matches);
-    // console.log("nextMatchId", nextMatchId);
-    // console.log("newMatch", newMatch);
-    createNewMatchId();
-    newMatches.push(newMatch);
-    setMatches(newMatches);
-    // console.log("matches", matches);
-  };
 
   const incrementScore = function() {
     console.log("setHomeScore", setHomeScore);
@@ -92,7 +60,7 @@ const Matches = () => {
   return (
     <div className="matches">
       <h1>Matches</h1>
-      <button onClick={createNewMatch}>Create Match</button>
+      <button>Create Match</button>
       {currentMatches}
     </div>
   );
