@@ -24,22 +24,35 @@ const errors = {};
 // };
 
 const CreateMatch = () => {
-  const [scoreKeeper, setScoreKeeper] = useState("commish");
-  const [homeTeam, setHomeTeam] = useState("Home Team");
-  const [awayTeam, setAwayTeam] = useState("Away Team");
+  const [scoreKeeper, setScoreKeeper] = useState("");
+  const [homeTeam, setHomeTeam] = useState("");
+  const [awayTeam, setAwayTeam] = useState("");
   const [teams, setTeams] = useState([]);
   const [players, setPlayers] = useState([]);
   console.log("teams", teams);
 
-  // const [scoreKeeper, setScoreKeeper] = useState("5d22970a499e9942a5834873");
-  // const [homeTeam, setHomeTeam] = useState("5c9a9ef3e6814f122a1af324");
-  // const [awayTeam, setAwayTeam] = useState("5c9a9e2be6814f122a1af322");
-  // const [homeTeamScore, setHomeTeamScore] = useState(0);
-  // const [awayTeamScore, setAayTeamScore] = useState(0);
-  // const [balls, setBalls] = useState(0);
-  // const [strikes, setStrikes] = useState(0);
-  // const [fouls, setFouls] = useState(0);
-  // const [outs, setOuts] = useState(0);
+  const validateForm = e => {
+    e.preventDefault();
+    if (homeTeam === awayTeam) {
+      console.log(
+        `away team: ${awayTeam} can NOT be the same as home team: ${homeTeam}`
+      );
+    }
+    if (homeTeam === "" || awayTeam === "" || scoreKeeper === "") {
+      console.log("fields cannot be blank");
+    }
+    if (
+      homeTeam !== awayTeam &&
+      homeTeam !== "" &&
+      awayTeam !== "" &&
+      scoreKeeper !== ""
+    ) {
+      createNewMatch(e);
+    }
+    console.log("scoreKeeper", scoreKeeper);
+    console.log("bad form");
+    return false;
+  };
 
   const submitMatch = async newMatch => {
     console.log("newMatch", newMatch);
@@ -81,7 +94,7 @@ const CreateMatch = () => {
       <button>Use Existing Teams</button>
       <button>Create New Team</button>
       <div className="form">
-        <form onSubmit={createNewMatch}>
+        <form onSubmit={validateForm}>
           <div className="form-group">
             <label htmlFor="choose score keeper">score keeper</label>
             <select
