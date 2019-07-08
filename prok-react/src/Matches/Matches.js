@@ -4,6 +4,7 @@ import Match from "./Match/Match";
 
 const Matches = () => {
   const [matches, setMatches] = useState([]);
+  const [showAllMatches, setShowAllMatches] = useState(true);
   const [awayScore, setAwayScore] = useState(0);
   const [homeScore, setHomeScore] = useState(0);
   const [balls, setBalls] = useState(0);
@@ -19,7 +20,21 @@ const Matches = () => {
 
   let currentMatches = null;
 
+  const toggleShowAllMatches = matches => {
+    // console.log("matches", matches);
+    let filteredMatches = matches.filter(
+      match => match.matchComplete === false
+    );
+    // console.log("showAllMatches", showAllMatches);
+    setShowAllMatches(!showAllMatches);
+    console.log("showAllMatches", showAllMatches);
+    console.log("filteredMatches", filteredMatches);
+    setMatches(filteredMatches);
+    // return filteredMatches;
+  };
+
   if (matches.length > 0) {
+    console.log("matches.length", matches.length);
     currentMatches = matches.map(match => {
       return (
         <Match
@@ -48,19 +63,24 @@ const Matches = () => {
   useEffect(() => {
     async function getMatches() {
       const res = await axios("/matches");
-      setMatches(res.data);
+      if (showAllMatches) {
+        setMatches(res.data);
+      }
     }
     getMatches();
-  }, []);
+  }, [showAllMatches]);
 
   useEffect(() => {
     document.title = `${matches.length} matches currently`;
-  }, [matches]);
+  }, [matches, showAllMatches]);
 
   return (
     <div className="matches">
       <h1>Matches</h1>
       <button>Create Match</button>
+      <button onClick={() => toggleShowAllMatches(matches)}>
+        Show All Match
+      </button>
       {currentMatches}
     </div>
   );
