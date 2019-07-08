@@ -3,10 +3,12 @@ import axios from "axios";
 import Match from "./Match/Match";
 
 const API_URL_MATCHES = "/matches";
+const API_URL_TEAMS = "/teams";
 
 const Matches = () => {
   const [matches, setMatches] = useState([]);
   const [showAllMatches, setShowAllMatches] = useState(true);
+  const [teams, setTeams] = useState([]);
   const [awayScore, setAwayScore] = useState(0);
   const [homeScore, setHomeScore] = useState(0);
   const [balls, setBalls] = useState(0);
@@ -36,12 +38,23 @@ const Matches = () => {
   };
 
   if (matches.length > 0) {
-    console.log("matches.length", matches.length);
+    // console.log("matches.length", matches.length);
     currentMatches = matches.map(match => {
+      const awayTeamObj = teams.find(team => {
+        // console.log("team", team);
+        // console.log("match", match);
+        return match.awayTeam === team._id;
+      });
+      const homeTeamObj = teams.find(team => {
+        return match.homeTeam === team._id;
+      });
+      console.log("awayTeamObj", awayTeamObj);
       return (
         <Match
           key={match._id}
           matchId={match._id}
+          awayTeamObj={awayTeamObj}
+          homeTeamObj={homeTeamObj}
           match={match}
           awayScore={awayScore}
           setAwayScore={setAwayScore}
@@ -75,6 +88,15 @@ const Matches = () => {
   useEffect(() => {
     document.title = `${matches.length} matches currently`;
   }, [matches, showAllMatches]);
+
+  useEffect(() => {
+    async function getTeams() {
+      const res = await axios(API_URL_TEAMS);
+      console.log("res", res);
+      setTeams(res.data);
+    }
+    getTeams();
+  }, []);
 
   return (
     <div className="matches">

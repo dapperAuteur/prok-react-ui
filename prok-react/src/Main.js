@@ -57,6 +57,7 @@ const Main = () => {
     <Router>
       <div className="App">
         <NavBar />
+        <App />
         <Route path="/" exact />
         <Route path="/matches" exact component={Matches} />
         <Route path="/sign-up" exact component={SignUp} />
@@ -64,7 +65,6 @@ const Main = () => {
         <Route path="/match/create-match" exact component={CreateMatch} />
         <Route path="/match/matchId/edit" exact component={CreateMatch} />
         <Route path="/my-current/match" exact component={Match} />
-        <h1>Kickball</h1>
       </div>
     </Router>
   );
