@@ -29,6 +29,7 @@ const CreateMatch = () => {
   const [awayTeam, setAwayTeam] = useState("Away Team");
   const [teams, setTeams] = useState([]);
   const [players, setPlayers] = useState([]);
+  console.log("teams", teams);
 
   // const [scoreKeeper, setScoreKeeper] = useState("5d22970a499e9942a5834873");
   // const [homeTeam, setHomeTeam] = useState("5c9a9ef3e6814f122a1af324");
@@ -50,10 +51,10 @@ const CreateMatch = () => {
 
   const createNewMatch = e => {
     e.preventDefault();
-    console.log("createNewMatch");
-    console.log("scoreKeeper", scoreKeeper);
-    console.log("homeTeam", homeTeam);
-    console.log("awayTeam", awayTeam);
+    // console.log("createNewMatch");
+    // console.log("scoreKeeper", scoreKeeper);
+    // console.log("homeTeam", homeTeam);
+    // console.log("awayTeam", awayTeam);
     const newMatch = { scoreKeeper, homeTeam, awayTeam };
     console.log("newMatch inside createNewMatch()", newMatch);
     submitMatch(newMatch);
@@ -62,12 +63,12 @@ const CreateMatch = () => {
   useEffect(() => {
     async function getPlayers() {
       const res = await axios(API_URL_PLAYERS);
-      console.log("res", res);
+      // console.log("res", res);
       setPlayers(res.data);
     }
     async function getTeams() {
       const res = await axios(API_URL_TEAMS);
-      console.log("res", res);
+      // console.log("res", res);
       setTeams(res.data);
     }
     getPlayers();
@@ -82,47 +83,58 @@ const CreateMatch = () => {
       <div className="form">
         <form onSubmit={createNewMatch}>
           <div className="form-group">
-            <input
-              type="text"
-              className={classnames("form-control form-control-lg", {
-                "is-valid": errors.scoreKeeper
-              })}
-              placeholder="select score keeper"
+            <label htmlFor="choose score keeper">score keeper</label>
+            <select
               name="scoreKeeper"
-              autoComplete="off"
-              onChange={e => setScoreKeeper(e.target.value)}
+              id="scoreKeeper"
+              key="scoreKeeper"
               value={scoreKeeper}
-            />
+              onChange={e => setScoreKeeper(e.target.value)}
+            >
+              {players.map(player => (
+                <option key={player._id} value={player._id}>
+                  {player.nickname}
+                </option>
+              ))}
+            </select>
             {errors.scoreKeeper && (
               <div className="invalid-feedback">{errors.scoreKeeper}</div>
             )}
           </div>
           <div className="form-group">
-            <input
-              type="text"
-              className={classnames("form-control form-control-lg", {
-                "is-valid": errors.awayTeam
-              })}
-              placeholder="select away team"
+            <label htmlFor="choose away team">away team</label>
+            <select
               name="awayTeam"
-              onChange={e => setAwayTeam(e.target.value)}
+              id="awayTeam"
+              key="awayTeam"
               value={awayTeam}
-            />
+              onChange={e => setAwayTeam(e.target.value)}
+            >
+              {teams.map(team => (
+                <option key={team._id} value={team._id}>
+                  {team.teamName}
+                </option>
+              ))}
+            </select>
             {errors.awayTeam && (
               <div className="invalid-feedback">{errors.awayTeam}</div>
             )}
           </div>
           <div className="form-group">
-            <input
-              type="text"
-              className={classnames("form-control form-control-lg", {
-                "is-valid": errors.homeTeam
-              })}
-              placeholder="select home team"
+            <label htmlFor="choose home team">home team</label>
+            <select
               name="homeTeam"
-              onChange={e => setHomeTeam(e.target.value)}
+              id="homeTeam"
+              key="homeTeam"
               value={homeTeam}
-            />
+              onChange={e => setHomeTeam(e.target.value)}
+            >
+              {teams.map(team => (
+                <option key={team._id} value={team._id}>
+                  {team.teamName}
+                </option>
+              ))}
+            </select>
             {errors.homeTeam && (
               <div className="invalid-feedback">{errors.homeTeam}</div>
             )}
