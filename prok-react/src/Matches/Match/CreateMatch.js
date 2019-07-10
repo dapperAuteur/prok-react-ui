@@ -50,7 +50,6 @@ const CreateMatch = () => {
       createNewMatch(e);
     }
     console.log("scoreKeeper", scoreKeeper);
-    console.log("bad form");
     return false;
   };
 

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import openSocket from "socket.io-client";
 import Match from "./Match/Match";
 
+const API_URL = "http://localhost:8080";
 const API_URL_MATCHES = "/matches";
 const API_URL_TEAMS = "/teams";
 
@@ -21,6 +23,14 @@ const Matches = () => {
     setHomeScore(homeScore + 1);
   };
   // console.log("incrementScore", incrementScore);
+
+  const getMatches = async function() {
+    const res = await axios(API_URL_MATCHES);
+    if (showAllMatches) {
+      setMatches(res.data);
+    }
+    console.log("getMatches");
+  };
 
   let currentMatches = null;
 
@@ -48,7 +58,7 @@ const Matches = () => {
       const homeTeamObj = teams.find(team => {
         return match.homeTeam === team._id;
       });
-      console.log("awayTeamObj", awayTeamObj);
+      // console.log("awayTeamObj", awayTeamObj);
       return (
         <Match
           key={match._id}
@@ -76,12 +86,12 @@ const Matches = () => {
   }
 
   useEffect(() => {
-    async function getMatches() {
-      const res = await axios(API_URL_MATCHES);
-      if (showAllMatches) {
-        setMatches(res.data);
-      }
-    }
+    // async function getMatches() {
+    //   const res = await axios(API_URL_MATCHES);
+    //   if (showAllMatches) {
+    //     setMatches(res.data);
+    //   }
+    // }
     getMatches();
   }, [showAllMatches]);
 
@@ -98,9 +108,20 @@ const Matches = () => {
     getTeams();
   }, []);
 
+  useEffect(() => {
+    const socket = openSocket(API_URL);
+    console.log("socket", socket);
+    socket.on("createMatch", data => {
+      console.log("sockets");
+      if (data.action === "create") {
+        console.log("data", data);
+        getMatches();
+      }
+    });
+  });
   return (
     <div className="matches">
-      <h1>Matches</h1>
+      <h1>{matches.length} Matches</h1>
       <button>Create Match</button>
       <button onClick={() => toggleShowAllMatches(matches)}>
         Show All Match
