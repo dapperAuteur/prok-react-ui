@@ -57,7 +57,15 @@ const Players = () => {
     });
   }, []);
 
-  return <div />;
+  return (
+    <div className="players">
+      <h1>{players.length} Players</h1>
+      <button onClick={() => toggleShowAllPlayers(players)}>
+        Show All Players
+      </button>
+      {currentPlayers}
+    </div>
+  );
 };
 
 export default Players;

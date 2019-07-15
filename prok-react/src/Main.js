@@ -4,7 +4,8 @@ import axios from "axios";
 import App from "./App";
 import Match from "./Matches/Match/Match";
 import Matches from "./Matches/Matches";
-import MatchesComponent from "./Matches/MatchesComponent";
+import Player from "./Players/Player/Player";
+import Players from "./Players/Players";
 import CreateMatch from "./Matches/Match/CreateMatch";
 import SignUp from "./Auth/SignUp";
 import SignIn from "./Auth/SignIn";
@@ -42,7 +43,7 @@ function NavBar() {
             <Link to="/matches">Matches</Link>
           </li>
           <li>
-            <Link to="/matches-component">MatchesComponent</Link>
+            <Link to="/players">Players</Link>
           </li>
           <li>
             <Link to="/my-current/match">My Current Match</Link>
@@ -64,7 +65,7 @@ const Main = () => {
         <App />
         <Route path="/" exact />
         <Route path="/matches" exact component={Matches} />
-        <Route path="/matches-component" exact component={MatchesComponent} />
+        <Route path="/players" exact component={Players} />
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-in" exact component={SignIn} />
         <Route path="/match/create-match" exact component={CreateMatch} />
