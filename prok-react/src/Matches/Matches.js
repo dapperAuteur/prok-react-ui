@@ -6,6 +6,7 @@ import Match from "./Match/Match";
 const API_URL = "http://localhost:8080";
 const API_URL_MATCHES = "/matches";
 const API_URL_TEAMS = "/teams";
+const socket = openSocket(API_URL);
 
 const Matches = () => {
   const [matches, setMatches] = useState([]);
@@ -109,16 +110,24 @@ const Matches = () => {
   }, []);
 
   useEffect(() => {
-    const socket = openSocket(API_URL);
-    console.log("socket", socket);
-    socket.on("createMatch", data => {
+    // refactor to only update the match that changes
+    socket.on("createdMatch", data => {
       console.log("sockets");
-      if (data.action === "create") {
-        console.log("data", data);
+      if (data.action === "createdMatch") {
+        // console.log("data", data);
         getMatches();
       }
     });
   });
+
+  useEffect(() => {
+    // refactor to only update the match that changes
+    socket.on("updatedMatch", data => {
+      if (data.action === "updatedMatch") {
+        getMatches();
+      }
+    });
+  }, []);
   return (
     <div className="matches">
       <h1>{matches.length} Matches</h1>
