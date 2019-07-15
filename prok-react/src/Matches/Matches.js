@@ -136,6 +136,7 @@ const Matches = () => {
       <button onClick={() => toggleShowAllMatches(matches)}>
         Show All Match
       </button>
+      <p className="playing">Matches Currently Playing Have A Green Border</p>
       {currentMatches}
     </div>
   );

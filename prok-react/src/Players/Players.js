@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import openSocket from "socket.io-client";
 import Player from "./Player/Player";
-import "./Players.css";
 
 const API_URL = "http://localhost:8080";
 const API_URL_PLAYERS = "/players";

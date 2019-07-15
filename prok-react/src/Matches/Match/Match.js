@@ -3,12 +3,13 @@ import ScoreBoard from "./ScoreBoard";
 import PitchCount from "./PitchCount";
 
 const Match = props => {
-  // console.log("props", props);
+  console.log("props", props);
 
   const match = {
     matchId: props.match._id,
     scoreKeeper: props.match.scoreKeeper,
-    currentInning: props.match.currentInning
+    currentInning: props.match.currentInning,
+    matchComplete: props.match.matchComplete
     // awayTeamName: props.awayTeamObj.teamName,
     // homeTeamName: props.homeTeamObj.teamName
   };
@@ -30,9 +31,10 @@ const Match = props => {
   };
   // console.log("scoreBoard", scoreBoard);
   // console.log("pitchCount", pitchCount);
+  console.log("match.matchComplete", match.matchComplete);
 
   return (
-    <div className="match">
+    <div className={match.matchComplete ? "match" : "match currentlyPlaying"}>
       <h1>Match</h1>
       <ScoreBoard scoreBoard={scoreBoard} match={match} />
       <PitchCount pitchCount={pitchCount} match={match} />

@@ -1,5 +1,4 @@
 import React from "react";
-import "./../Players.css";
 
 const Player = props => {
   // console.log("props", props.player);

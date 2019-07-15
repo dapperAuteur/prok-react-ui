@@ -31,3 +31,20 @@
     transform: rotate(360deg);
   }
 }
+
+.players,
+.matches {
+}
+
+.player,
+.match {
+  border: 4px dotted;
+}
+
+.currentlyPlaying {
+  border: 4px dotted green;
+}
+
+.playing {
+  color: green;
+}
