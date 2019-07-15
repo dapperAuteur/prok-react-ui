@@ -123,6 +123,7 @@ const Matches = () => {
   useEffect(() => {
     // refactor to only update the match that changes
     socket.on("updatedMatch", data => {
+      console.log("data", data);
       if (data.action === "updatedMatch") {
         getMatches();
       }
