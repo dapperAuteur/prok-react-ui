@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ScoreBoard from "./ScoreBoard";
 import PitchCount from "./PitchCount";
 

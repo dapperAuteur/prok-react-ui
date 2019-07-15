@@ -100,14 +100,14 @@ const Matches = () => {
     document.title = `${matches.length} matches currently`;
   }, [matches, showAllMatches]);
 
-  useEffect(() => {
-    async function getTeams() {
-      const res = await axios(API_URL_TEAMS);
-      console.log("res", res);
-      setTeams(res.data);
-    }
-    getTeams();
-  }, []);
+  // useEffect(() => {
+  //   async function getTeams() {
+  //     const res = await axios(API_URL_TEAMS);
+  //     console.log("res", res);
+  //     setTeams(res.data);
+  //   }
+  //   getTeams();
+  // }, []);
 
   useEffect(() => {
     // refactor to only update the match that changes
