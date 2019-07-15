@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import openSocket from "socket.io-client";
 import Player from "./Player/Player";
+import "./Players.css";
 
 const API_URL = "http://localhost:8080";
 const API_URL_PLAYERS = "/players";
@@ -16,7 +17,7 @@ const Players = () => {
     if (showAllPlayers) {
       setPlayers(res.data);
     }
-    console.log("res", res);
+    // console.log("res", res);
   };
 
   let currentPlayers = null;
@@ -63,6 +64,7 @@ const Players = () => {
       <button onClick={() => toggleShowAllPlayers(players)}>
         Show All Players
       </button>
+      <p className="playing">Players Currently Playing Have A Green Border</p>
       {currentPlayers}
     </div>
   );
