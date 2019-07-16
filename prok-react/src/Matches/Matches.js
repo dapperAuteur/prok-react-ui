@@ -23,7 +23,6 @@ const Matches = () => {
     console.log("setHomeScore", setHomeScore);
     setHomeScore(homeScore + 1);
   };
-  // console.log("incrementScore", incrementScore);
 
   const getMatches = async function() {
     const res = await axios(API_URL_MATCHES);
@@ -71,13 +70,9 @@ const Matches = () => {
           setAwayScore={setAwayScore}
           homeScore={homeScore}
           incrementScore={incrementScore}
-          balls={balls}
           setBalls={setBalls}
-          strikes={strikes}
           setStrikes={setStrikes}
-          fouls={fouls}
           setFouls={setFouls}
-          outs={outs}
           setOuts={setOuts}
         />
       );

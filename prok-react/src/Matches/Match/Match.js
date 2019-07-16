@@ -3,7 +3,7 @@ import ScoreBoard from "./ScoreBoard";
 import PitchCount from "./PitchCount";
 
 const Match = props => {
-  console.log("props", props);
+  // console.log("props", props);
 
   const match = {
     matchId: props.match._id,
@@ -31,7 +31,6 @@ const Match = props => {
   };
   // console.log("scoreBoard", scoreBoard);
   // console.log("pitchCount", pitchCount);
-  console.log("match.matchComplete", match.matchComplete);
 
   return (
     <div className={match.matchComplete ? "match" : "match currentlyPlaying"}>
