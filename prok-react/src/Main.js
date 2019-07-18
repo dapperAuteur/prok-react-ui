@@ -25,33 +25,48 @@ function NavBar() {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/sign-in">Sign In</Link>
-          </li>
-          <li>
-            <Link to="/sign-up">Sign Up</Link>
+            <Link className="button" to="/">
+              Home
+            </Link>
           </li>
           {currentUser._id ? (
             <div>
               {
                 <li>
-                  <Link to="/" onClick={() => signOut()}>
+                  <Link className="button" to="/" onClick={() => signOut()}>
                     Sign Out
                   </Link>
                 </li>
               }
             </div>
-          ) : null}
+          ) : (
+            <div>
+              <li>
+                <Link className="button" to="/sign-in">
+                  Sign In
+                </Link>
+              </li>
+              <li>
+                <Link className="button" to="/sign-up">
+                  Sign Up
+                </Link>
+              </li>
+            </div>
+          )}
           <li>
-            <Link to="/matches">Matches</Link>
+            <Link className="button" to="/matches">
+              Matches
+            </Link>
           </li>
           <li>
-            <Link to="/my-current/match">My Current Match</Link>
+            <Link className="button" to="/my-current/match">
+              My Current Match
+            </Link>
           </li>
           <li>
-            <Link to="/match/create-match">Create Match</Link>
+            <Link className="button" to="/match/create-match">
+              Create Match
+            </Link>
           </li>
         </ul>
       </nav>

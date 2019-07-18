@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: rgba(255, 255, 255, 0);
+  color: #1d741b;
 }
 
 .App-logo {
@@ -21,6 +23,35 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.match-link {
+  text-decoration: none;
+  padding: 0.5em 0.5em;
+  color: rgba(155, 4, 4, 0.75);
+}
+
+.players,
+.matches {
+}
+
+.player,
+.match {
+  border: 4px dotted;
+}
+
+.currentlyPlaying {
+  border: 4px dotted #1d741b;
+}
+
+.playing {
+  color: #1d741b;
+}
+
+.score,
+.stat {
+  padding: 0.5em 0.5em;
+  color: black;
 }
 
 @keyframes App-logo-spin {

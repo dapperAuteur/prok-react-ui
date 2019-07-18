@@ -4,12 +4,13 @@ import ScoreBoard from "./ScoreBoard";
 import PitchCount from "./PitchCount";
 
 const Match = props => {
-  console.log("props", props);
+  // console.log("props", props);
 
   const match = {
     matchId: props.match._id,
     scoreKeeper: props.match.scoreKeeper,
-    currentInning: props.match.currentInning
+    currentInning: props.match.currentInning,
+    matchComplete: props.match.matchComplete
   };
 
   const scoreBoard = {
@@ -25,22 +26,20 @@ const Match = props => {
     fouls: props.match.fouls,
     outs: props.match.outs
   };
-  // console.log("scoreBoard", scoreBoard);
-  // console.log("pitchCount", pitchCount);
 
   return (
-    <div className="match">
-      <Link
-        to={{
-          pathname: "/my-current/match",
-          state: { scoreBoard, match, pitchCount }
-        }}
-      >
-        Match
-      </Link>
-      <ScoreBoard scoreBoard={scoreBoard} match={match} />
-      <PitchCount pitchCount={pitchCount} match={match} />
-    </div>
+    <Link
+      to={{
+        pathname: "/my-current/match",
+        state: { scoreBoard, match, pitchCount }
+      }}
+      className="match-link"
+    >
+      <div className={match.matchComplete ? "match" : "match currentlyPlaying"}>
+        <ScoreBoard scoreBoard={scoreBoard} match={match} />
+        <PitchCount pitchCount={pitchCount} match={match} />
+      </div>
+    </Link>
   );
 };
 

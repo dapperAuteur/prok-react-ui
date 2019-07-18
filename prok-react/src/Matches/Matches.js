@@ -10,16 +10,10 @@ const API_URL_TEAMS = "/teams";
 const socket = openSocket(API_URL);
 
 const Matches = props => {
-  console.log("props", props);
+  // console.log("props", props);
   const [matches, setMatches] = useState([]);
   const [showAllMatches, setShowAllMatches] = useState(true);
   const [teams, setTeams] = useState([]);
-  const [awayScore, setAwayScore] = useState(0);
-  const [homeScore, setHomeScore] = useState(0);
-  const [balls, setBalls] = useState(0);
-  const [strikes, setStrikes] = useState(0);
-  const [fouls, setFouls] = useState(0);
-  const [outs, setOuts] = useState(0);
 
   const getMatches = async function() {
     const res = await axios(API_URL_MATCHES);
@@ -50,7 +44,7 @@ const Matches = props => {
   };
 
   if (matches.length > 0) {
-    // console.log("matches.length", matches.length);
+    // console.log("matches", matches);
     currentMatches = matches.map(match => {
       const awayTeamObj = teams.find(team => {
         return match.awayTeam === team._id;
@@ -61,21 +55,9 @@ const Matches = props => {
       return (
         <Match
           key={match._id}
-          matchId={match._id}
           match={match}
           awayTeamObj={awayTeamObj}
-          awayScore={awayScore}
-          setAwayScore={setAwayScore}
           homeTeamObj={homeTeamObj}
-          homeScore={homeScore}
-          balls={balls}
-          setBalls={setBalls}
-          strikes={strikes}
-          setStrikes={setStrikes}
-          fouls={fouls}
-          setFouls={setFouls}
-          outs={outs}
-          setOuts={setOuts}
         />
       );
     });
@@ -114,8 +96,9 @@ const Matches = props => {
       <h1>Matches</h1>
       <button>Create Match</button>
       <button onClick={() => toggleShowAllMatches(matches)}>
-        Show All Match
+        {showAllMatches ? "Show Current Matches" : "Show All Match"}
       </button>
+      <p className="playing">Matches Currently Playing Have A Green Border</p>
       {currentMatches}
     </div>
   );

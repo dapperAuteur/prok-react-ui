@@ -16,7 +16,7 @@ const PitchCount = pitchCount => {
       </div>
       <div>
         <h3>{currentInning}</h3>
-        <h3>{scoreKeeper} is the Scorekeeper.</h3>
+        {/* <h3>{scoreKeeper} is the Scorekeeper.</h3> */}
       </div>
     </div>
   );
