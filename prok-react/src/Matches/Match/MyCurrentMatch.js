@@ -16,23 +16,25 @@ const MyCurrentMatch = props => {
   const [fouls, setFouls] = useState(pitchCount.fouls);
   const [outs, setOuts] = useState(pitchCount.outs);
   // console.log("state", state);
-  // console.log("match", match);
+  console.log("match", match);
   console.log("homeTeamScore", homeTeamScore);
 
-  const changeHomeTeamScore = async scoreBoard => {
-    setHomeTeamScore(homeTeamScore + 1);
-    // console.log("homeTeamScore", homeTeamScore);
-    let updatedMatch = {
-      _id: match.matchId,
-      homeTeamScore: homeTeamScore + 1
-    };
-    // console.log("updatedMatch", updatedMatch);
+  const updateMatch = async updatedMatch => {
     const res = await axios.patch(
       `${API_URL}/${updatedMatch._id}`,
       updatedMatch
     );
     console.log("res", res);
-    return res;
+    // add updated match to session or localStorage
+  };
+
+  const changeHomeTeamScore = async scoreBoard => {
+    setHomeTeamScore(homeTeamScore + 1);
+    let updatedMatch = {
+      _id: match.matchId,
+      homeTeamScore: homeTeamScore + 1
+    };
+    return updateMatch(updatedMatch);
   };
 
   const changeAwayTeamScore = async scoreBoard => {
@@ -41,37 +43,69 @@ const MyCurrentMatch = props => {
       _id: match.matchId,
       awayTeamScore: awayTeamScore + 1
     };
-    const res = await axios.patch(
-      `${API_URL}/${updatedMatch._id}`,
-      updatedMatch
-    );
-    return res;
+    return updateMatch(updatedMatch);
+  };
+
+  const changeBalls = async scoreBoard => {
+    setBalls(balls + 1);
+    let updatedMatch = {
+      _id: match.matchId,
+      balls: balls + 1
+    };
+    return updateMatch(updatedMatch);
+  };
+
+  const changeStrikes = async scoreBoard => {
+    setStrikes(strikes + 1);
+    let updatedMatch = {
+      _id: match.matchId,
+      strikes: strikes + 1
+    };
+    return updateMatch(updatedMatch);
+  };
+
+  const changeFouls = async scoreBoard => {
+    setFouls(fouls + 1);
+    let updatedMatch = {
+      _id: match.matchId,
+      fouls: fouls + 1
+    };
+    return updateMatch(updatedMatch);
+  };
+
+  const changeOuts = async scoreBoard => {
+    setOuts(outs + 1);
+    let updatedMatch = {
+      _id: match.matchId,
+      outs: outs + 1
+    };
+    return updateMatch(updatedMatch);
   };
 
   return (
-    <div>
+    <div className="my-current-match">
       <h4>MyCurrentMatch</h4>
       <h3>{match.currentInning}</h3>
-      <div>
-        <button onClick={() => changeAwayTeamScore()}>
+      <div className="score-board">
+        <button className="score" onClick={() => changeAwayTeamScore()}>
           away: {awayTeamScore}
         </button>
-        <button onClick={() => changeHomeTeamScore()}>
+        <button className="score" onClick={() => changeHomeTeamScore()}>
           home: {homeTeamScore}
         </button>
       </div>
       <div className="pitch-count">
         <h3>PitchCount</h3>
-        <button onClick={() => setBalls(balls + 1)} className="stat">
+        <button className="stat" onClick={() => changeBalls()}>
           Balls: {balls}
         </button>
-        <button onClick={() => setStrikes(strikes + 1)} className="stat">
+        <button className="stat" onClick={() => changeStrikes()}>
           Strikes: {strikes}
         </button>
-        <button onClick={() => setFouls(fouls + 1)} className="stat">
+        <button className="stat" onClick={() => changeFouls()}>
           Fouls: {fouls}
         </button>
-        <button onClick={() => setOuts(outs + 1)} className="stat">
+        <button className="stat" onClick={() => changeOuts()}>
           Outs: {outs}
         </button>
       </div>
