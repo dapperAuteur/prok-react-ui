@@ -15,7 +15,7 @@ const Matches = () => {
   const [outs, setOuts] = useState(0);
 
   const incrementScore = function() {
-    console.log("setHomeScore", setHomeScore);
+    // console.log("setHomeScore", setHomeScore);
     setHomeScore(homeScore + 1);
   };
   // console.log("incrementScore", incrementScore);
@@ -29,14 +29,14 @@ const Matches = () => {
     );
     // console.log("showAllMatches", showAllMatches);
     setShowAllMatches(!showAllMatches);
-    console.log("showAllMatches", showAllMatches);
-    console.log("filteredMatches", filteredMatches);
+    // console.log("showAllMatches", showAllMatches);
+    // console.log("filteredMatches", filteredMatches);
     setMatches(filteredMatches);
     // return filteredMatches;
   };
 
   if (matches.length > 0) {
-    console.log("matches.length", matches.length);
+    // console.log("matches.length", matches.length);
     currentMatches = matches.map(match => {
       return (
         <Match

@@ -12,7 +12,7 @@ const PitchCount = pitchCount => {
     outs,
     setOuts
   } = pitchCount.pitchCount;
-  let { matchId, scoreKeeper, currentInning } = pitchCount.match;
+  let { scoreKeeper, currentInning } = pitchCount.match;
   // console.log("matchId", matchId);
   return (
     <div className="pitch-count">

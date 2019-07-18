@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from "axios";
-import App from "./App";
-import Match from "./Matches/Match/Match";
+// import Match from "./Matches/Match/Match";
 import Matches from "./Matches/Matches";
+import MyCurrentMatch from "./Matches/Match/MyCurrentMatch";
 import CreateMatch from "./Matches/Match/CreateMatch";
 import SignUp from "./Auth/SignUp";
 import SignIn from "./Auth/SignIn";
+import "./App.css";
 
 const API_URL = "/auth/sign-out";
 
@@ -32,11 +33,17 @@ function NavBar() {
           <li>
             <Link to="/sign-up">Sign Up</Link>
           </li>
-          <li>
-            <Link to="/" onClick={() => signOut()}>
-              Sign Out
-            </Link>
-          </li>
+          {currentUser._id ? (
+            <div>
+              {
+                <li>
+                  <Link to="/" onClick={() => signOut()}>
+                    Sign Out
+                  </Link>
+                </li>
+              }
+            </div>
+          ) : null}
           <li>
             <Link to="/matches">Matches</Link>
           </li>
@@ -63,7 +70,7 @@ const Main = () => {
         <Route path="/sign-in" exact component={SignIn} />
         <Route path="/match/create-match" exact component={CreateMatch} />
         <Route path="/match/matchId/edit" exact component={CreateMatch} />
-        <Route path="/my-current/match" exact component={Match} />
+        <Route path="/my-current/match" exact component={MyCurrentMatch} />
         <h1>Kickball</h1>
       </div>
     </Router>

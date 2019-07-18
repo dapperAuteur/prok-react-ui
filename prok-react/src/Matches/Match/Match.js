@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import ScoreBoard from "./ScoreBoard";
 import PitchCount from "./PitchCount";
 
 const Match = props => {
-  // console.log("props", props);
+  console.log("props", props);
 
   const match = {
     matchId: props.match._id,
@@ -29,7 +30,14 @@ const Match = props => {
 
   return (
     <div className="match">
-      <h1>Match</h1>
+      <Link
+        to={{
+          pathname: "/my-current/match",
+          state: { scoreBoard, match, pitchCount }
+        }}
+      >
+        Match
+      </Link>
       <ScoreBoard scoreBoard={scoreBoard} match={match} />
       <PitchCount pitchCount={pitchCount} match={match} />
     </div>
