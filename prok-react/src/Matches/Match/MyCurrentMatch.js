@@ -17,12 +17,12 @@ const MyCurrentMatch = props => {
 
   const changeHomeTeamScore = async scoreBoard => {
     setHomeTeamScore(homeTeamScore + 1);
-    console.log("homeTeamScore", homeTeamScore);
+    // console.log("homeTeamScore", homeTeamScore);
     let updatedMatch = {
       _id: match.matchId,
       homeTeamScore: homeTeamScore + 1
     };
-    console.log("updatedMatch", updatedMatch);
+    // console.log("updatedMatch", updatedMatch);
     const res = await axios.patch(
       `${API_URL}/${updatedMatch._id}`,
       updatedMatch
@@ -31,8 +31,17 @@ const MyCurrentMatch = props => {
     return res;
   };
 
-  const changeAwayTeamScore = () => {
+  const changeAwayTeamScore = async scoreBoard => {
     setAwayTeamScore(awayTeamScore + 1);
+    let updatedMatch = {
+      _id: match.matchId,
+      awayTeamScore: awayTeamScore + 1
+    };
+    const res = await axios.patch(
+      `${API_URL}/${updatedMatch._id}`,
+      updatedMatch
+    );
+    return res;
   };
 
   return (
