@@ -6,9 +6,7 @@ const ScoreBoard = scoreBoard => {
     homeTeam,
     awayTeam,
     homeTeamScore,
-    awayTeamScore,
-    setAwayScore,
-    incrementScore
+    awayTeamScore
   } = scoreBoard.scoreBoard;
 
   let matchId = scoreBoard.match.matchId;
@@ -17,12 +15,12 @@ const ScoreBoard = scoreBoard => {
   return (
     <div className="score-board">
       <h3>Score Board {matchId}</h3>
-      <button className="score" onClick={() => incrementScore()}>
+      <span className="score">
         {homeTeam}: {homeTeamScore}
-      </button>
-      <button className="score" onClick={() => setAwayScore(awayTeamScore + 1)}>
+      </span>
+      <span className="score">
         {awayTeam}: {awayTeamScore}
-      </button>
+      </span>
     </div>
   );
 };
