@@ -9,7 +9,8 @@ const API_URL_MATCHES = "/matches";
 const API_URL_TEAMS = "/teams";
 const socket = openSocket(API_URL);
 
-const Matches = () => {
+const Matches = props => {
+  console.log("props", props);
   const [matches, setMatches] = useState([]);
   const [showAllMatches, setShowAllMatches] = useState(true);
   const [teams, setTeams] = useState([]);
@@ -27,6 +28,16 @@ const Matches = () => {
     }
   };
 
+  // const getTeams = async function() {
+  //   const res = await axios(API_URL_TEAMS);
+  //   teams = res.data
+  // };
+
+  // const getData = function() {
+  //   getMatches();
+  //   getTeams();
+  // };
+
   let currentMatches = null;
 
   const toggleShowAllMatches = matches => {
@@ -34,12 +45,8 @@ const Matches = () => {
     let filteredMatches = matches.filter(
       match => match.matchComplete === false
     );
-    // console.log("showAllMatches", showAllMatches);
     setShowAllMatches(!showAllMatches);
-    // console.log("showAllMatches", showAllMatches);
-    // console.log("filteredMatches", filteredMatches);
     setMatches(filteredMatches);
-    // return filteredMatches;
   };
 
   if (matches.length > 0) {
