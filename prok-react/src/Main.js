@@ -21,60 +21,51 @@ function NavBar() {
     console.log("currentUser", currentUser);
   };
   return (
-    <div className="nav-bar">
-      <nav>
-        <ul>
-          <li>
-            <Link className="button" to="/">
-              Home
-            </Link>
-          </li>
-          {currentUser._id ? (
-            <div>
-              {
-                <li>
-                  <Link className="button" to="/" onClick={() => signOut()}>
-                    Sign Out
-                  </Link>
-                </li>
-              }
-            </div>
-          ) : (
-            <div>
-              <li>
-                <Link className="button" to="/sign-in">
-                  Sign In
-                </Link>
-              </li>
-              <li>
-                <Link className="button" to="/sign-up">
-                  Sign Up
-                </Link>
-              </li>
-            </div>
-          )}
-          <li>
-            <Link className="button" to="/matches">
+    <nav className="navbar">
+      <div className="dropdown">
+        <div id="kb-dropdown1" className="dropdown1">
+          <Link className="btn" to="/">
+            Bush League Kickball
+          </Link>
+          <div id="kb-content1" className="content">
+            <Link className="btn btn-default" to="/matches">
               Matches
             </Link>
-          </li>
-          <li>
-            <Link className="button" to="/my-current/match">
+            {/* <Link className="btn btn-default" to="/my-current/match">
               My Current Match
-            </Link>
-          </li>
-          <li>
-            <Link className="button" to="/match/create-match">
+            </Link> */}
+            <Link className="btn btn-default" to="/match/create-match">
               Create Match
             </Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+          </div>
+        </div>
+        <div className="dropdown">
+          <div id="kb-dropdown1" className="dropdown1">
+            <button className="btn">Auth</button>
+            <div id="kb-content1" className="content">
+              {currentUser._id ? (
+                <Link to="/" className="btn" onClick={() => signOut()}>
+                  Log Out
+                </Link>
+              ) : (
+                <span>
+                  <Link to="/sign-up" className="btn">
+                    Sign Up
+                  </Link>
+                  <Link to="/sign-in" className="btn">
+                    Sign In
+                  </Link>
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 }
 
-const Main = () => {
+const MainCopy = () => {
   return (
     <Router>
       <div className="App">
@@ -92,4 +83,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default MainCopy;
