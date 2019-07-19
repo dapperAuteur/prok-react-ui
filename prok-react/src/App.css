@@ -4,13 +4,7 @@
   color: #1d741b;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -23,7 +17,7 @@
 
 .App-link {
   color: #61dafb;
-}
+} */
 
 .match-link {
   text-decoration: none;
@@ -53,12 +47,105 @@
   padding: 0.5em 0.5em;
   color: black;
 }
+a:link {
+  text-decoration: none;
+}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+.navbar {
+  display: flex;
+}
+
+.dropdown {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  border: double;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.dropdown1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#kb-content1 {
+  visibility: hidden;
+}
+#kb-dropdown1:hover #kb-content1 {
+  visibility: visible;
+}
+
+#kb-content2 {
+  visibility: hidden;
+}
+
+#kb-dropdown2:hover #kb-content2 {
+  visibility: visible;
+}
+
+@media (max-width: 800px) {
+  .navbar {
+    display: flex;
+    margin-right: 0.3em;
+    /* resize image */
+    /* background-image: url('./../images/nicaraugua/img_9251_dog_on_the_steps.jpg'); */
   }
-  to {
-    transform: rotate(360deg);
+
+  .content {
+    display: flex;
+  }
+}
+
+@media (max-width: 570px) {
+  .content {
+    display: flex;
+    flex-shrink: 1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 530px) {
+  .dropdown {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .auth {
+  }
+}
+
+/* .btn media query isn't working as expected */
+@media (max-width: 465px) {
+  .dropdown1 {
+    display: flex;
+    direction: column;
+  }
+  .btn {
+    margin: 0px;
   }
 }
