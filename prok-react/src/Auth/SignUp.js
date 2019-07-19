@@ -1,21 +1,16 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import axios from "axios";
 import classnames from "classnames";
+import authReducer from "./../store/authReducer";
+import { SIGN_UP } from "../store/actionTypes";
 axios.defaults.withCredentials = true;
 const API_URL = "/auth/sign-up";
 
 const SignUp = () => {
+  const [signUpRequest, dispatch] = useReducer(authReducer, {});
   const [errors, setErrors] = useState({});
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const signUp = async signUpRequest => {
-    signUpRequest.withCredentials = true;
-    const res = await axios.post(API_URL, signUpRequest);
-    document.cookie = "sid=" + JSON.stringify(res.data.session);
-    console.log("res", res);
-    return res;
-  };
 
   function onSubmit(e) {
     e.preventDefault();
@@ -23,7 +18,8 @@ const SignUp = () => {
       username,
       password
     };
-    signUp(signUpRequest);
+    console.log("signUpRequest", signUpRequest);
+    dispatch({ type: SIGN_UP, payload: signUpRequest });
   }
   return (
     <div className="login">
@@ -54,11 +50,11 @@ const SignUp = () => {
                   className={classnames("form-control form-control-lg", {
                     "is-invalid": errors.password
                   })}
-                  placeholder="password"
+                  placeholder="enter password"
                   name="password"
                   autoComplete="off"
                   onChange={e => setPassword(e.target.value)}
-                  value
+                  value={password}
                 />
                 {errors.password && (
                   <div className="invalid-feedback">{errors.password}</div>
