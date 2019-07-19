@@ -1,24 +1,17 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import axios from "axios";
 import classnames from "classnames";
+import authReducer from "./../store/authReducer";
+import { LOG_IN } from "./../store/actionTypes";
 axios.defaults.withCredentials = true;
 
-const API_URL = "/auth/sign-in";
+// const API_URL = "/auth/sign-in";
 
 const SignIn = () => {
+  const [loginRequest, dispatch] = useReducer(authReducer, {});
   const [errors, setErrors] = useState({});
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const login = async loginRequest => {
-    loginRequest.withCredentials = true;
-    const res = await axios.post(API_URL, loginRequest);
-    console.log("res", res);
-    document.cookie = "sid=" + JSON.stringify(res.data.session);
-    setUsername("");
-    setPassword("");
-    return res;
-  };
 
   function onSubmit(e) {
     e.preventDefault();
@@ -28,7 +21,8 @@ const SignIn = () => {
     };
     console.log("loginRequest", loginRequest);
 
-    login(loginRequest);
+    // login(loginRequest);
+    dispatch({ type: LOG_IN, payload: loginRequest });
   }
 
   return (
