@@ -11,7 +11,6 @@ import KickballContext, {
 } from "./kickball-context";
 import authReducer from "./authReducer";
 import matchReducer from "./matchReducer";
-import { setCurrentUser } from "./authActions";
 
 // authentication
 export const LOG_IN = "LOG_IN";
@@ -32,19 +31,16 @@ const GlobalState = props => {
   // const [matchState, dispatch] = useReducer(matchReducer, {})
   const login = async loginRequest => {
     loginRequest.withCredentials = true;
-    // console.log("loginRequest", loginRequest);
     const res = await axios.post(API_URL_SIGN_IN, loginRequest);
     authDispatch({ type: SET_CURRENT_USER, payload: res.data.session });
   };
   const signUp = async signUpRequest => {
     signUpRequest.withCredentials = true;
     const res = await axios.post(API_URL_SIGN_UP, signUpRequest);
-    console.log("res", res);
     authDispatch({ type: SET_CURRENT_USER, payload: res.data.session });
   };
   const signOut = async currentUser => {
     const res = await axios.post(API_URL_OUT, currentUser);
-    console.log("currentUser", currentUser);
     authDispatch({ type: SET_CURRENT_USER, payload: res.data.session });
   };
   return (

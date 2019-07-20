@@ -1,13 +1,4 @@
-import axios from "axios";
-
 import * as actionTypes from "./actionTypes";
-import * as authActions from "./authActions";
-
-const API_URL_SIGN_UP = "/auth/sign-up";
-const API_URL_SIGN_IN = "/auth/sign-in";
-const API_URL_OUT = "/auth/sign-out";
-let myCurrentUser;
-
 const authInitialState = {
   cookie: {
     expires: "",
@@ -43,9 +34,7 @@ const authReducer = (state = authInitialState, action) => {
 
     //   return signUp(action.payload);
     case actionTypes.SET_CURRENT_USER:
-      // console.log("set current user action", action);
       currentUser = action.payload;
-      console.log("currentUser", currentUser);
       document.cookie = "sid=" + JSON.stringify(currentUser);
       return Object.assign({}, state, {
         currentUser

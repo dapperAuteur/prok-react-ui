@@ -2,32 +2,17 @@ import React, { useContext, useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import GlobalState from "./store/GlobalState";
 import KickballContext from "./store/kickball-context";
-// import Match from "./Matches/Match/Match";
 import Matches from "./Matches/Matches";
 import MyCurrentMatch from "./Matches/Match/MyCurrentMatch";
 import CreateMatch from "./Matches/Match/CreateMatch";
 import SignUp from "./Auth/SignUp";
 import SignIn from "./Auth/SignIn";
 import Counter from "./reducerTest/Counter";
-import authReducer from "./store/authReducer";
-import { SIGN_OUT } from "./store/actionTypes";
 import "./App.css";
-import { signOut } from "./store/authActions";
-
-// const API_URL = "/auth/sign-out";
 
 function NavBar() {
-  const [currentUser, dispatch] = useReducer(authReducer, {});
   const context = useContext(KickballContext);
   const signOut = context.signOut;
-  // const signOut = async currentUser => {
-  //   const res = await axios.post(API_URL, currentUser);
-  //   document.cookie = "sid=" + JSON.stringify(res.data.session);
-  //   setCurrentUser(res.data.session);
-  //   console.log("res", res);
-  // console.log("currentUser", currentUser);
-  // };
-  // console.log("currentUser", currentUser);
   return (
     <nav className="navbar">
       <div className="dropdown">
@@ -51,7 +36,7 @@ function NavBar() {
           <div id="kb-dropdown1" className="dropdown1">
             <button className="btn">Auth</button>
             <div id="kb-content1" className="content">
-              <Link to="/" className="btn" onClick={() => signOut(currentUser)}>
+              <Link to="/" className="btn" onClick={() => signOut()}>
                 Log Out
               </Link>
               <span>
