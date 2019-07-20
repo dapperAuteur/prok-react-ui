@@ -1,6 +1,7 @@
-import React, { useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import axios from "axios";
+import GlobalState from "./store/GlobalState";
+import KickballContext from "./store/kickball-context";
 // import Match from "./Matches/Match/Match";
 import Matches from "./Matches/Matches";
 import MyCurrentMatch from "./Matches/Match/MyCurrentMatch";
@@ -11,11 +12,14 @@ import Counter from "./reducerTest/Counter";
 import authReducer from "./store/authReducer";
 import { SIGN_OUT } from "./store/actionTypes";
 import "./App.css";
+import { signOut } from "./store/authActions";
 
 // const API_URL = "/auth/sign-out";
 
 function NavBar() {
   const [currentUser, dispatch] = useReducer(authReducer, {});
+  const context = useContext(KickballContext);
+  const signOut = context.signOut;
   // const signOut = async currentUser => {
   //   const res = await axios.post(API_URL, currentUser);
   //   document.cookie = "sid=" + JSON.stringify(res.data.session);
@@ -23,7 +27,7 @@ function NavBar() {
   //   console.log("res", res);
   // console.log("currentUser", currentUser);
   // };
-  console.log("currentUser", currentUser);
+  // console.log("currentUser", currentUser);
   return (
     <nav className="navbar">
       <div className="dropdown">
@@ -47,13 +51,7 @@ function NavBar() {
           <div id="kb-dropdown1" className="dropdown1">
             <button className="btn">Auth</button>
             <div id="kb-content1" className="content">
-              <Link
-                to="/"
-                className="btn"
-                onClick={() =>
-                  dispatch({ type: SIGN_OUT, payload: currentUser })
-                }
-              >
+              <Link to="/" className="btn" onClick={() => signOut(currentUser)}>
                 Log Out
               </Link>
               <span>
@@ -72,23 +70,35 @@ function NavBar() {
   );
 }
 
-const MainCopy = () => {
+const Main = () => {
+  const context = useContext(KickballContext);
+  // console.log("context", context);
+  const cookie = decodeURIComponent(document.cookie);
+  console.log("cookie", cookie);
+  useEffect(() => {
+    return () => {
+      console.log("context", context);
+    };
+  }, [context]);
   return (
-    <Router>
-      <div className="App">
-        <NavBar />
-        <Route path="/" exact />
-        <Route path="/matches" exact component={Matches} />
-        <Route path="/sign-up" exact component={SignUp} />
-        <Route path="/sign-in" exact component={SignIn} />
-        <Route path="/match/create-match" exact component={CreateMatch} />
-        <Route path="/match/matchId/edit" exact component={CreateMatch} />
-        <Route path="/my-current/match" exact component={MyCurrentMatch} />
-        <h1>Kickball</h1>
-        <Counter />
-      </div>
-    </Router>
+    <GlobalState>
+      <Router>
+        <div className="App">
+          <NavBar />
+          {cookie ? <p>True</p> : <p>False</p>}
+          <Route path="/" exact />
+          <Route path="/matches" exact component={Matches} />
+          <Route path="/sign-up" exact component={SignUp} />
+          <Route path="/sign-in" exact component={SignIn} />
+          <Route path="/match/create-match" exact component={CreateMatch} />
+          <Route path="/match/matchId/edit" exact component={CreateMatch} />
+          <Route path="/my-current/match" exact component={MyCurrentMatch} />
+          <h1>Kickball</h1>
+          <Counter />
+        </div>
+      </Router>
+    </GlobalState>
   );
 };
 
-export default MainCopy;
+export default Main;

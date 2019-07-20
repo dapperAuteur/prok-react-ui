@@ -1,16 +1,20 @@
-import React, { useReducer, useState } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import axios from "axios";
 import classnames from "classnames";
 import authReducer from "./../store/authReducer";
+import KickballContext from "./../store/kickball-context";
 import { SIGN_UP } from "../store/actionTypes";
 axios.defaults.withCredentials = true;
 const API_URL = "/auth/sign-up";
 
 const SignUp = () => {
+  const context = useContext(KickballContext);
   const [signUpRequest, dispatch] = useReducer(authReducer, {});
   const [errors, setErrors] = useState({});
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const signUp = context.signUp;
 
   function onSubmit(e) {
     e.preventDefault();
@@ -19,7 +23,7 @@ const SignUp = () => {
       password
     };
     console.log("signUpRequest", signUpRequest);
-    dispatch({ type: SIGN_UP, payload: signUpRequest });
+    signUp(signUpRequest);
   }
   return (
     <div className="login">

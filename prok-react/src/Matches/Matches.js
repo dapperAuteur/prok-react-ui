@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import openSocket from "socket.io-client";
 import Match from "./Match/Match";
+import KickballContext from "./../store/kickball-context";
 
 const API_URL = "http://localhost:8080";
 
@@ -10,6 +11,8 @@ const API_URL_TEAMS = "/teams";
 const socket = openSocket(API_URL);
 
 const Matches = props => {
+  const context = useContext(KickballContext);
+  console.log("context", context);
   // console.log("props", props);
   const [matches, setMatches] = useState([]);
   const [showAllMatches, setShowAllMatches] = useState(true);

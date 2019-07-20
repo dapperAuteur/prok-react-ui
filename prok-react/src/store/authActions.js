@@ -22,14 +22,34 @@ export const signOut = async currentUser => {
   console.log("currentUser", currentUser);
   return setCurrentUser(res.data);
 };
-export const login = async (dispatch, loginRequest) => {
-  loginRequest.withCredentials = true;
-  const res = await axios.post(API_URL_SIGN_IN, loginRequest);
-  console.log("res", res);
-  // document.cookie = "sid=" + JSON.stringify(res.data.session);
-  // setUsername("");
-  // setPassword("");
-  return dispatch(setCurrentUser(res.data.session));
+export const login = async loginRequest => dispatch => {
+  fetch(`${API_URL_SIGN_IN}`, {
+    method: "post",
+    headers: new Headers({
+      "Content-Type": "application/json"
+    }),
+    body: JSON.stringify({ ...loginRequest })
+  })
+    .then(resp => {
+      if (!resp.ok) {
+        if (resp.status >= 400 && resp.status < 500) {
+          return resp.json().then(data => {
+            let err = { errorMessage: data.message };
+            throw err;
+          });
+        } else {
+          let err = {
+            errorMessage: "Please Try Again Later. Server Is NOT Responding."
+          };
+          throw err;
+        }
+      }
+      return resp.json();
+    })
+    .then(currentUser => {
+      console.log("currentUser", currentUser);
+      dispatch({ type: actionTypes.SET_CURRENT_USER, payload: currentUser });
+    });
 };
 
 export const signUp = async (dispatch, signUpRequest) => {

@@ -1,28 +1,33 @@
-import React, { useReducer, useState } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import axios from "axios";
 import classnames from "classnames";
 import authReducer from "./../store/authReducer";
+import KickballContext from "./../store/kickball-context";
 import { LOG_IN } from "./../store/actionTypes";
 axios.defaults.withCredentials = true;
 
 // const API_URL = "/auth/sign-in";
 
 const SignIn = () => {
+  const context = useContext(KickballContext);
   const [loginRequest, dispatch] = useReducer(authReducer, {});
   const [errors, setErrors] = useState({});
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // console.log("context", context);
+
+  const login = context.login;
 
   function onSubmit(e) {
     e.preventDefault();
     const loginRequest = {
       username,
-      password
+      password,
+      withCredentials: true
     };
-    console.log("loginRequest", loginRequest);
+    // console.log("loginRequest", loginRequest);
 
-    // login(loginRequest);
-    dispatch({ type: LOG_IN, payload: loginRequest });
+    login(loginRequest);
   }
 
   return (
