@@ -4,26 +4,31 @@ import openSocket from "socket.io-client";
 import Match from "./Match/Match";
 import KickballContext from "./../store/kickball-context";
 
+axios.defaults.withCredentials = true;
+
 const API_URL = "http://localhost:8080";
 
-const API_URL_MATCHES = "/matches";
-const API_URL_TEAMS = "/teams";
+// const API_URL_MATCHES = "/matches";
+// const API_URL_TEAMS = "/teams";
 const socket = openSocket(API_URL);
 
 const Matches = props => {
   const context = useContext(KickballContext);
   console.log("context", context);
+  // let matches = context.matchState.matches;
   // console.log("props", props);
   const [matches, setMatches] = useState([]);
   const [showAllMatches, setShowAllMatches] = useState(true);
   const [teams, setTeams] = useState([]);
 
-  const getMatches = async function() {
-    const res = await axios(API_URL_MATCHES);
-    if (showAllMatches) {
-      setMatches(res.data);
-    }
-  };
+  const getMatches = context.getMatches;
+
+  // const getMatches = async function() {
+  //   const res = await axios(API_URL_MATCHES);
+  //   if (showAllMatches) {
+  // setMatches(res.data);
+  //   }
+  // };
 
   // const getTeams = async function() {
   //   const res = await axios(API_URL_TEAMS);

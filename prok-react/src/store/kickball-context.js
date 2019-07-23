@@ -4,6 +4,7 @@ export const API_URL_SIGN_UP = "/auth/sign-up";
 export const API_URL_SIGN_IN = "/auth/sign-in";
 export const API_URL_OUT = "/auth/sign-out";
 export const API_URL_MATCHES = "/matches";
+export const API_URL_TEAMS = "/teams";
 
 export const authInitialState = {
   cookie: {
@@ -27,6 +28,7 @@ export const authInitialState = {
 
 export const matchInitialState = {
   matches: [],
+  teams: [],
   myCurrentMatch: {
     scoreKeeper: "",
     homeTeam: "5c9a9ef3e6814f122a1af324",

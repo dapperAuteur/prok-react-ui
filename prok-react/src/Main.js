@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import GlobalState from "./store/GlobalState";
 import KickballContext from "./store/kickball-context";
 import Matches from "./Matches/Matches";
+import Matches0001 from "./Matches/Matches0001";
 import MyCurrentMatch from "./Matches/Match/MyCurrentMatch";
 import CreateMatch from "./Matches/Match/CreateMatch";
 import SignUp from "./Auth/SignUp";
@@ -57,9 +58,9 @@ function NavBar() {
 
 const Main = () => {
   const context = useContext(KickballContext);
-  // console.log("context", context);
+  console.log("context", context);
   const cookie = decodeURIComponent(document.cookie);
-  console.log("cookie", cookie);
+  // console.log("cookie", cookie);
   useEffect(() => {
     return () => {
       console.log("context", context);
@@ -79,6 +80,7 @@ const Main = () => {
           <Route path="/match/matchId/edit" exact component={CreateMatch} />
           <Route path="/my-current/match" exact component={MyCurrentMatch} />
           <h1>Kickball</h1>
+          <Matches0001 />
           <Counter />
         </div>
       </Router>
