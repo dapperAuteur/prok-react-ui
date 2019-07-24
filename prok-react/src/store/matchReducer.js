@@ -6,6 +6,7 @@ const API_URL_MATCHES = "/matches";
 
 const matchInitialState = {
   matches: [],
+  teams: [],
   myCurrentMatch: {
     scoreKeeper: "",
     homeTeam: "5c9a9ef3e6814f122a1af324",
@@ -56,13 +57,17 @@ const setMyCurrentMatch = myCurrentMatch => {
   document.cookie = "myCurrentMatch=" + JSON.stringify(myCurrentMatch);
 };
 
+// const setMatches = (state, matches) => {
+//   console.log("state", state);
+//   console.log("matches", matches);
+// };
+
 const matchReducer = (state = matchInitialState, action) => {
   let match;
   let matches;
-  console.log("match", match);
-  console.log("action", action);
-  console.log("state", state);
-  console.log("matchReducer");
+  let teams;
+  // console.log("action", action);
+  // console.log("state", state);
 
   switch (action.type) {
     case actionTypes.CREATE_MATCH:
@@ -76,11 +81,21 @@ const matchReducer = (state = matchInitialState, action) => {
     case actionTypes.GET_MATCH:
       return;
     case actionTypes.GET_MATCHES:
-      return;
+      // console.log("action", action);
+      matches = action.payload;
+      // console.log("matches", matches);
+      // setMatches(state, matches);
+      // console.log("state", state);
+      return { ...state, matches };
     case actionTypes.DELETE_MATCH:
+      return;
+    case actionTypes.GET_TEAMS:
+      console.log("action", action);
       return;
 
     default:
       return;
   }
 };
+
+export default matchReducer;

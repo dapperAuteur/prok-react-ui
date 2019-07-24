@@ -6,6 +6,7 @@ import KickballContext, {
   API_URL_SIGN_IN,
   API_URL_OUT,
   API_URL_MATCHES,
+  API_URL_TEAMS,
   authInitialState,
   matchInitialState
 } from "./kickball-context";
@@ -26,9 +27,14 @@ export const GET_MATCH = "GET_MATCH";
 export const GET_MATCHES = "GET_MATCHES";
 export const DELETE_MATCH = "DELETE_MATCH";
 
+// team
+export const GET_TEAMS = "GET_TEAMS";
+
 const GlobalState = props => {
   const [authState, authDispatch] = useReducer(authReducer, authInitialState);
-  // const [matchState, dispatch] = useReducer(matchReducer, {})
+  const [matchState, matchDispatch] = useReducer(matchReducer, {});
+
+  // auth funcs
   const login = async loginRequest => {
     loginRequest.withCredentials = true;
     const res = await axios.post(API_URL_SIGN_IN, loginRequest);
@@ -43,6 +49,25 @@ const GlobalState = props => {
     const res = await axios.post(API_URL_OUT, currentUser);
     authDispatch({ type: SET_CURRENT_USER, payload: res.data.session });
   };
+
+  // match funcs
+  const getMatches = async currentUser => {
+    const res = await axios(API_URL_MATCHES);
+    // console.log("res", res);
+    // console.log("res.data", res.data);
+    matchDispatch({ type: GET_MATCHES, payload: res.data });
+  };
+
+  // team funcs
+  const getTeams = async currentUser => {
+    const res = await axios(API_URL_TEAMS);
+    matchDispatch({ type: GET_TEAMS, payload: res.data });
+  };
+
+  const getMatchesAndTeams = async currentUser => {
+    const res = await axios.all([getMatches(), getTeams()]);
+  };
+
   return (
     <KickballContext.Provider
       value={{
@@ -50,12 +75,17 @@ const GlobalState = props => {
         API_URL_SIGN_IN,
         API_URL_OUT,
         API_URL_MATCHES,
+        GET_TEAMS,
         authInitialState,
         matchInitialState,
+        getMatches,
+        getTeams,
         login,
         signOut,
         signUp,
-        authState
+        authState,
+        matchState,
+        matches: matchState.matches
       }}
     >
       {props.children}

@@ -36,9 +36,8 @@ const authReducer = (state = authInitialState, action) => {
     case actionTypes.SET_CURRENT_USER:
       currentUser = action.payload;
       document.cookie = "sid=" + JSON.stringify(currentUser);
-      return Object.assign({}, state, {
-        currentUser
-      });
+      console.log("currentUser", currentUser);
+      return Object.assign({}, state, currentUser);
     default:
       console.log("default reducer action");
   }
