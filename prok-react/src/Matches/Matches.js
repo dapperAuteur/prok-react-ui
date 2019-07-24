@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import openSocket from "socket.io-client";
 import Match from "./Match/Match";
 import KickballContext from "./../store/kickball-context";
 
@@ -10,7 +9,6 @@ const API_URL = "http://localhost:8080";
 
 // const API_URL_MATCHES = "/matches";
 // const API_URL_TEAMS = "/teams";
-const socket = openSocket(API_URL);
 
 const Matches = props => {
   const context = useContext(KickballContext);
@@ -80,24 +78,6 @@ const Matches = props => {
   useEffect(() => {
     document.title = `${matches.length} matches currently`;
   }, [matches, showAllMatches]);
-
-  useEffect(() => {
-    socket.on("createdMatch", data => {
-      console.log("data", data);
-      if (data.action === "createdMatch") {
-        getMatches();
-      }
-    });
-  });
-
-  useEffect(() => {
-    socket.on("updatedMatch", data => {
-      console.log("data", data);
-      if (data.action === "updatedMatch") {
-        getMatches();
-      }
-    });
-  }, []);
 
   return (
     <div className="matches">

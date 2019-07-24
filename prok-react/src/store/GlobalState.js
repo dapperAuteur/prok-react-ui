@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import axios from "axios";
 
 import KickballContext, {
+  API_GRAPHQL,
   API_URL_SIGN_UP,
   API_URL_SIGN_IN,
   API_URL_OUT,
@@ -37,22 +38,46 @@ const GlobalState = props => {
   // auth funcs
   const login = async loginRequest => {
     loginRequest.withCredentials = true;
-    const res = await axios.post(API_URL_SIGN_IN, loginRequest);
+    const res = await axios.post(API_GRAPHQL, loginRequest);
     authDispatch({ type: SET_CURRENT_USER, payload: res.data.session });
   };
   const signUp = async signUpRequest => {
     signUpRequest.withCredentials = true;
-    const res = await axios.post(API_URL_SIGN_UP, signUpRequest);
-    authDispatch({ type: SET_CURRENT_USER, payload: res.data.session });
+    console.log("signUpRequest", signUpRequest);
+    const graphqlQuery = {
+      query: `
+        mutation {
+          signUp(userInput: {username: "${signUpRequest.username}",password: "${
+        signUpRequest.password
+      }"}) {
+            cookie {
+              expires
+              originalMaxAge
+              secure
+              httpOnly
+              path
+              sameSite
+            }
+            user {
+              username
+              _id
+            }
+          }
+        }
+      `
+    };
+    const res = await axios.post(API_GRAPHQL, graphqlQuery);
+    console.log("res.data.data.signUp", res.data.data.signUp);
+    authDispatch({ type: SET_CURRENT_USER, payload: res.data.data.signUp });
   };
   const signOut = async currentUser => {
-    const res = await axios.post(API_URL_OUT, currentUser);
+    const res = await axios.post(API_GRAPHQL, currentUser);
     authDispatch({ type: SET_CURRENT_USER, payload: res.data.session });
   };
 
   // match funcs
   const getMatches = async currentUser => {
-    const res = await axios(API_URL_MATCHES);
+    const res = await axios(API_GRAPHQL);
     // console.log("res", res);
     // console.log("res.data", res.data);
     matchDispatch({ type: GET_MATCHES, payload: res.data });
@@ -60,7 +85,7 @@ const GlobalState = props => {
 
   // team funcs
   const getTeams = async currentUser => {
-    const res = await axios(API_URL_TEAMS);
+    const res = await axios(API_GRAPHQL);
     matchDispatch({ type: GET_TEAMS, payload: res.data });
   };
 

@@ -35,6 +35,7 @@ const authReducer = (state = authInitialState, action) => {
     //   return signUp(action.payload);
     case actionTypes.SET_CURRENT_USER:
       currentUser = action.payload;
+      console.log("action", action);
       document.cookie = "sid=" + JSON.stringify(currentUser);
       console.log("currentUser", currentUser);
       return Object.assign({}, state, currentUser);
