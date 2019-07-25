@@ -5,17 +5,18 @@ import PitchCount from "./PitchCount";
 
 const Match = props => {
   // console.log("props", props);
+  // console.log("props.awayTeamObj", props.awayTeamObj);
 
   const match = {
-    matchId: props.match._id,
+    matchId: props.match.id,
     scoreKeeper: props.match.scoreKeeper,
     currentInning: props.match.currentInning,
     matchComplete: props.match.matchComplete
   };
 
   const scoreBoard = {
-    homeTeam: props.match.homeTeam,
-    awayTeam: props.match.awayTeam,
+    homeTeam: props.homeTeamObj.teamName,
+    awayTeam: props.awayTeamObj.teamName,
     homeTeamScore: props.match.homeTeamScore,
     awayTeamScore: props.match.awayTeamScore
   };

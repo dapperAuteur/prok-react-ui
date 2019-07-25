@@ -58,7 +58,7 @@ function NavBar() {
 
 const Main = () => {
   const context = useContext(KickballContext);
-  console.log("context", context);
+  // console.log("context", context);
   const cookie = decodeURIComponent(document.cookie);
   // console.log("cookie", cookie);
   useEffect(() => {
@@ -73,15 +73,13 @@ const Main = () => {
           <NavBar />
           {cookie ? <p>True</p> : <p>False</p>}
           <Route path="/" exact />
-          <Route path="/matches" exact component={Matches} />
+          <Route path="/matches" exact component={Matches0001} />
           <Route path="/sign-up" exact component={SignUp} />
           <Route path="/sign-in" exact component={SignIn} />
           <Route path="/match/create-match" exact component={CreateMatch} />
           <Route path="/match/matchId/edit" exact component={CreateMatch} />
           <Route path="/my-current/match" exact component={MyCurrentMatch} />
           <h1>Kickball</h1>
-          <Matches0001 />
-          <Counter />
         </div>
       </Router>
     </GlobalState>

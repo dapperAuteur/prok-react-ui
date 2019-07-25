@@ -16,11 +16,13 @@ const authInitialState = {
     password: "",
     updatedAt: "",
     createdAt: ""
-  }
+  },
+  errors: []
 };
 
 const authReducer = (state = authInitialState, action) => {
   let currentUser;
+  let errors;
   switch (action.type) {
     // case actionTypes.LOG_IN:
     //   console.log("action", action);
@@ -33,12 +35,18 @@ const authReducer = (state = authInitialState, action) => {
     //   currentUser = action.currentUser;
 
     //   return signUp(action.payload);
+    case actionTypes.SET_AUTH_ERRORS:
+      console.log("action", action);
+      currentUser = {};
+      errors = action.payload;
+      return Object.assign({}, state, errors);
     case actionTypes.SET_CURRENT_USER:
       currentUser = action.payload;
+      errors = [];
       console.log("action", action);
       document.cookie = "sid=" + JSON.stringify(currentUser);
       console.log("currentUser", currentUser);
-      return Object.assign({}, state, currentUser);
+      return Object.assign({}, state, currentUser, errors);
     default:
       console.log("default reducer action");
   }

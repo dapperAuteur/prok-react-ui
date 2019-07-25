@@ -5,6 +5,7 @@ import * as actionTypes from "./actionTypes";
 const API_URL_MATCHES = "/matches";
 
 const matchInitialState = {
+  errors: [],
   matches: [],
   teams: [],
   myCurrentMatch: {
@@ -66,10 +67,15 @@ const matchReducer = (state = matchInitialState, action) => {
   let match;
   let matches;
   let teams;
+  let errors;
   // console.log("action", action);
   // console.log("state", state);
 
   switch (action.type) {
+    case actionTypes.SET_MATCH_ERRORS:
+      console.log("action", action);
+      errors = action.payload;
+      return Object.assign({}, state, errors);
     case actionTypes.CREATE_MATCH:
       match = action.payload;
       createMatch(action.payload);
@@ -82,11 +88,10 @@ const matchReducer = (state = matchInitialState, action) => {
       return;
     case actionTypes.GET_MATCHES:
       // console.log("action", action);
-      matches = action.payload;
+      matches = action.payload.matchFeed.matches;
       // console.log("matches", matches);
-      // setMatches(state, matches);
-      // console.log("state", state);
-      return { ...state, matches };
+      teams = action.payload.teamFeed.teams;
+      return { ...state, matches, teams };
     case actionTypes.DELETE_MATCH:
       return;
     case actionTypes.GET_TEAMS:

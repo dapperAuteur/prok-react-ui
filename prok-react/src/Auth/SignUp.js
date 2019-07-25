@@ -3,9 +3,7 @@ import axios from "axios";
 import classnames from "classnames";
 import authReducer from "./../store/authReducer";
 import KickballContext from "./../store/kickball-context";
-import { SIGN_UP } from "../store/actionTypes";
 axios.defaults.withCredentials = true;
-const API_URL = "/auth/sign-up";
 
 const SignUp = () => {
   const context = useContext(KickballContext);
@@ -22,7 +20,7 @@ const SignUp = () => {
       username,
       password
     };
-    console.log("signUpRequest", signUpRequest);
+    // console.log("signUpRequest", signUpRequest);
     signUp(signUpRequest);
   }
   return (

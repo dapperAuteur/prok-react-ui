@@ -1,11 +1,6 @@
 import React from "react";
 
-export const API_URL_SIGN_UP = "/auth/sign-up";
-export const API_URL_SIGN_IN = "/auth/sign-in";
-export const API_URL_OUT = "/auth/sign-out";
-export const API_URL_MATCHES = "/matches";
-export const API_URL_TEAMS = "/teams";
-export const API_GRAPHQL = "/graphql";
+export const API_GRAPHQL = "/api/ver0001/graphql";
 
 export const authInitialState = {
   cookie: {
@@ -72,10 +67,6 @@ export const matchInitialState = {
 
 export default React.createContext({
   API_GRAPHQL: API_GRAPHQL,
-  API_URL_SIGN_UP: API_URL_SIGN_UP,
-  API_URL_SIGN_IN: API_URL_SIGN_IN,
-  API_URL_OUT: API_URL_OUT,
-  API_URL_MATCHES: API_URL_MATCHES,
   authInitialState: authInitialState,
   matchInitialState: matchInitialState
 });
