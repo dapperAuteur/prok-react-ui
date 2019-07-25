@@ -58,31 +58,33 @@ function NavBar() {
 
 const Main = () => {
   const context = useContext(KickballContext);
-  // console.log("context", context);
+  const getMatches = context.getMatches;
+  const getTeams = context.getTeams;
+  console.log("context", context);
   const cookie = decodeURIComponent(document.cookie);
   // console.log("cookie", cookie);
   useEffect(() => {
     return () => {
       console.log("context", context);
+      getMatches();
+      getTeams();
     };
   }, [context]);
   return (
-    <GlobalState>
-      <Router>
-        <div className="App">
-          <NavBar />
-          {cookie ? <p>True</p> : <p>False</p>}
-          <Route path="/" exact />
-          <Route path="/matches" exact component={Matches0001} />
-          <Route path="/sign-up" exact component={SignUp} />
-          <Route path="/sign-in" exact component={SignIn} />
-          <Route path="/match/create-match" exact component={CreateMatch} />
-          <Route path="/match/matchId/edit" exact component={CreateMatch} />
-          <Route path="/my-current/match" exact component={MyCurrentMatch} />
-          <h1>Kickball</h1>
-        </div>
-      </Router>
-    </GlobalState>
+    <Router>
+      <div className="App">
+        <NavBar />
+        {cookie ? <p>True</p> : <p>False</p>}
+        <Route path="/" exact />
+        <Route path="/matches" exact component={Matches0001} />
+        <Route path="/sign-up" exact component={SignUp} />
+        <Route path="/sign-in" exact component={SignIn} />
+        <Route path="/match/create-match" exact component={CreateMatch} />
+        <Route path="/match/matchId/edit" exact component={CreateMatch} />
+        <Route path="/my-current/match" exact component={MyCurrentMatch} />
+        <h1>Kickball</h1>
+      </div>
+    </Router>
   );
 };
 

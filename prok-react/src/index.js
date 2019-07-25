@@ -1,10 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import GlobalState from "./store/GlobalState";
 import Main from "./Main";
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<Main />, document.getElementById("root"));
+ReactDOM.render(
+  <GlobalState>
+    <Main />
+  </GlobalState>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
