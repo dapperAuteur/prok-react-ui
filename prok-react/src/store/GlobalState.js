@@ -37,15 +37,21 @@ const GlobalState = props => {
     loginRequest.withCredentials = true;
     const graphqlQuery = {
       query: `
-      mutation {
+      query {
         login(userInput: {username: "${loginRequest.username}",password: "${
         loginRequest.password
       }"}){
           cookie{
             expires
+            originalMaxAge
+            httpOnly
+            path
+            sameSite
+            secure
           }
           user{
             username
+            _id
           }
         }
       }
@@ -57,9 +63,16 @@ const GlobalState = props => {
         console.log("res.data.data.login", res.data.data.login);
         authDispatch({ type: SET_CURRENT_USER, payload: res.data.data.login });
       })
-      .catch(err => {
-        console.log("err", err);
+      .catch(error => {
+        console.log("error", error);
+        // console.log("error.errors", error.errors);
+        // console.log("error.errors[0]", error.errors[0]);
+        if (error.errors && error.errros[0].status === 422) {
+          console.log("error.errors", error.errors);
+          console.log("error.errors[0]", error.errors[0]);
+        }
       });
+    console.log("res", res);
   };
   const signUp = async signUpRequest => {
     signUpRequest.withCredentials = true;
