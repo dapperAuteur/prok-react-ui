@@ -76,7 +76,7 @@ const GlobalState = props => {
   };
   const signUp = async signUpRequest => {
     signUpRequest.withCredentials = true;
-    console.log("signUpRequest", signUpRequest);
+    // console.log("signUpRequest", signUpRequest);
     const graphqlQuery = {
       query: `
         mutation {
@@ -126,7 +126,7 @@ const GlobalState = props => {
           matchFeed {
             matchesCount
             matches {
-              id
+              _id
               awayTeam
               homeTeam
               awayTeamScore
@@ -144,15 +144,13 @@ const GlobalState = props => {
             teamsCount
             teams{
               teamName
-              id
+              _id
             }
           }
         }
       `
     };
     const res = await axios.post(API_GRAPHQL, graphqlQuery);
-    // console.log("res.data.data", res.data.data);
-    // console.log("res.data", res.data);
     matchDispatch({ type: GET_MATCHES, payload: res.data.data });
   };
 
@@ -195,9 +193,23 @@ const GlobalState = props => {
       });
   };
 
+  const updateMatch = async updatedMatch => {
+    console.log("updatedMatch", updatedMatch);
+    const res = await axios
+      .post(API_GRAPHQL, updatedMatch)
+      .then(res => {
+        console.log("res.data.data", res.data.data);
+        matchDispatch({ type: UPDATE_MATCH, payload: updatedMatch });
+      })
+      .catch(err => {
+        console.log("err", err);
+      });
+  };
+
   // team funcs
   const getTeams = async currentUser => {
     const res = await axios(API_GRAPHQL);
+    console.log("res", res);
     matchDispatch({ type: GET_TEAMS, payload: res.data });
   };
 
@@ -207,14 +219,15 @@ const GlobalState = props => {
         API_GRAPHQL,
         authInitialState,
         matchInitialState,
+        createMatch,
         getMatches,
         getTeams,
         login,
         signOut,
         signUp,
+        updateMatch,
         authState,
-        matchState,
-        matches: matchState.matches
+        matchState
       }}
     >
       {props.children}
