@@ -46,6 +46,9 @@ const authReducer = (state = authInitialState, action) => {
       console.log("action", action);
       document.cookie = "sid=" + JSON.stringify(currentUser);
       console.log("currentUser", currentUser);
+      if (typeof Storage !== "undefined") {
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      }
       return Object.assign({}, state, currentUser, errors);
     default:
       console.log("default reducer action");
