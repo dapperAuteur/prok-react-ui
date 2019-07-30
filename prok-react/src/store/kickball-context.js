@@ -1,6 +1,6 @@
 import React from "react";
 
-export const API_GRAPHQL = "/api/ver0001/graphql";
+export const API_GRAPHQL = "http://localhost:8080/api/ver0001/graphql";
 
 export const authInitialState = {
   cookie: {
