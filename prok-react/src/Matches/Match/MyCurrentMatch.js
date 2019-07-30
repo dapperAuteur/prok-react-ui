@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
+import KickballContext from "./../../store/kickball-context";
 
 const API_URL = "/matches";
 
 const MyCurrentMatch = props => {
-  // console.log("props", props);
+  const context = useContext(KickballContext);
+  console.log("props", props);
+  const updateMatchContext = context.updateMatch;
   // const [state, setstate] = useState({});
   let match = props.location.state.match;
   let pitchCount = props.location.state.pitchCount;
@@ -20,12 +23,14 @@ const MyCurrentMatch = props => {
   console.log("homeTeamScore", homeTeamScore);
 
   const updateMatch = async updatedMatch => {
-    const res = await axios.patch(
-      `${API_URL}/${updatedMatch._id}`,
-      updatedMatch
-    );
-    console.log("res", res);
+    // const res = await axios.patch(
+    //   `${API_URL}/${updatedMatch._id}`,
+    //   updatedMatch
+    // );
+    // console.log("res", res);
     // add updated match to session or localStorage
+    console.log("updatedMatch", updatedMatch);
+    updateMatchContext(updatedMatch);
   };
 
   const changeHomeTeamScore = async scoreBoard => {
