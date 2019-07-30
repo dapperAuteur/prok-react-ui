@@ -143,6 +143,45 @@ const GlobalState = props => {
     matchDispatch({ type: GET_MATCHES, payload: res.data.data });
   };
 
+  const createMatch = async (currentUser, newMatch) => {
+    let createdMatch;
+    console.log("newMatch", newMatch);
+    const { scoreKeeper, awayTeam, homeTeam } = newMatch;
+    const graphqlQuery = {
+      query: `
+        mutation{
+          createMatch(userInput: {scoreKeeper: "${scoreKeeper}", awayTeam: "${awayTeam}", homeTeam: "${homeTeam}"}){
+            _id
+            awayTeam
+            homeTeam
+            awayTeamScore
+            homeTeamScore
+            currentInning
+            matchType
+            balls
+            strikes
+            fouls
+            outs
+            matchComplete
+          }
+        }
+      `
+    };
+    const res = await axios
+      .post(API_GRAPHQL, graphqlQuery)
+      .then(res => {
+        console.log("res.data.data", res.data.data);
+        matchDispatch({ type: CREATE_MATCH, payload: res.data.data });
+      })
+      .catch(err => {
+        console.log("err", err);
+        console.log("err.errors", err.errors);
+        if (err.errors && res.errors[0].status === 422) {
+          console.log("err.errors", err.errors);
+        }
+      });
+  };
+
   // team funcs
   const getTeams = async currentUser => {
     const res = await axios(API_GRAPHQL);

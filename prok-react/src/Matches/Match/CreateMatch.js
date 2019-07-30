@@ -1,38 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 // import classnames from "classnames";
+import KickballContext from "./../../store/kickball-context";
 
 axios.defaults.withCredentials = true;
-const API_URL_MATCHES = "/matches";
-const API_URL_PLAYERS = "/players";
-const API_URL_TEAMS = "/teams";
 
 const errors = {};
 
-// let newMatch = {
-//   matchId: "",
-//   scoreKeeper: "the commish",
-//   currentInning: "Top 1st",
-//   homeTeam: "homeTeam",
-//   awayTeam: "awayTeam",
-//   homeTeamScore: 0,
-//   awayTeamScore: 0,
-//   balls: 0,
-//   strikes: 0,
-//   fouls: 0,
-//   outs: 0
-// };
+const CreateMatch = props => {
+  console.log("props", props);
+  const context = useContext(KickballContext);
+  console.log("context", context);
+  const createMatch = context.createMatch;
+  // const teams = context.
 
-const CreateMatch = () => {
-  const [scoreKeeper, setScoreKeeper] = useState("");
+  let scoreKeeper;
+  if (typeof Storage !== "undefined") {
+    if (localStorage.hasOwnProperty("currentUser")) {
+      let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      scoreKeeper = currentUser.user._id;
+    }
+  }
+  const defaultTeams = [
+    {
+      _id: "0",
+      teamName: "Choose A Team"
+    },
+    {
+      _id: "5c9a9e2be6814f122a1af322",
+      teamName: "Away Team"
+    },
+    {
+      _id: "5c9a9ef3e6814f122a1af324",
+      teamName: "Home Team"
+    }
+  ];
+
   const [homeTeam, setHomeTeam] = useState("");
   const [awayTeam, setAwayTeam] = useState("");
-  const [teams, setTeams] = useState([]);
-  const [players, setPlayers] = useState([]);
-  console.log("teams", teams);
+  const [teams, setTeams] = useState(defaultTeams);
 
   const validateForm = e => {
     e.preventDefault();
+    console.log("awayTeam", awayTeam);
+    console.log("homeTeam", homeTeam);
     if (homeTeam === awayTeam) {
       console.log(
         `away team: ${awayTeam} can NOT be the same as home team: ${homeTeam}`
@@ -47,46 +58,27 @@ const CreateMatch = () => {
       awayTeam !== "" &&
       scoreKeeper !== ""
     ) {
-      createNewMatch(e);
+      return createNewMatch(e);
     }
-    console.log("scoreKeeper", scoreKeeper);
     console.log("bad form");
     return false;
   };
 
-  const submitMatch = async newMatch => {
-    console.log("newMatch", newMatch);
-    newMatch.withCredentials = true;
-    const res = await axios.post(API_URL_MATCHES, newMatch);
-    console.log("res", res);
-    return res;
-  };
+  // const submitMatch = async newMatch => {
+  //   console.log("newMatch", newMatch);
+  //   newMatch.withCredentials = true;
+  //   createMatch(scoreKeeper, newMatch);
+  // };
 
   const createNewMatch = e => {
     e.preventDefault();
-    // console.log("createNewMatch");
-    // console.log("scoreKeeper", scoreKeeper);
-    // console.log("homeTeam", homeTeam);
-    // console.log("awayTeam", awayTeam);
-    const newMatch = { scoreKeeper, homeTeam, awayTeam };
+    const newMatch = { scoreKeeper, homeTeam, awayTeam, withCredentials: true };
     console.log("newMatch inside createNewMatch()", newMatch);
-    submitMatch(newMatch);
+    // newMatch.withCredentials = true;
+    createMatch(scoreKeeper, newMatch);
+    // submitMatch(newMatch);
+    props.history.push("/my-current/created-match", newMatch);
   };
-
-  useEffect(() => {
-    async function getPlayers() {
-      const res = await axios(API_URL_PLAYERS);
-      // console.log("res", res);
-      setPlayers(res.data);
-    }
-    async function getTeams() {
-      const res = await axios(API_URL_TEAMS);
-      // console.log("res", res);
-      setTeams(res.data);
-    }
-    getPlayers();
-    getTeams();
-  }, []);
 
   return (
     <div className="match">
@@ -95,25 +87,6 @@ const CreateMatch = () => {
       <button>Create New Team</button>
       <div className="form">
         <form onSubmit={validateForm}>
-          <div className="form-group">
-            <label htmlFor="choose score keeper">score keeper</label>
-            <select
-              name="scoreKeeper"
-              id="scoreKeeper"
-              key="scoreKeeper"
-              value={scoreKeeper}
-              onChange={e => setScoreKeeper(e.target.value)}
-            >
-              {players.map(player => (
-                <option key={player._id} value={player._id}>
-                  {player.nickname}
-                </option>
-              ))}
-            </select>
-            {errors.scoreKeeper && (
-              <div className="invalid-feedback">{errors.scoreKeeper}</div>
-            )}
-          </div>
           <div className="form-group">
             <label htmlFor="choose away team">away team</label>
             <select
