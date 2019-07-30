@@ -195,11 +195,35 @@ const GlobalState = props => {
 
   const updateMatch = async updatedMatch => {
     console.log("updatedMatch", updatedMatch);
+    const graphqlQuery = {
+      query: `
+        mutation{
+          updateMatch(userInput: {_id: "${updatedMatch._id}", awayTeamScore: "${
+        updatedMatch.awayTeamScore
+      }", homeTeamScore: "${updatedMatch.homeTeamScore}",balls: "${
+        updatedMatch.balls
+      }", strikes: "${updatedMatch.strikes}", fouls: "${updatedMatch.fouls}"}){
+            _id
+            awayTeam
+            homeTeam
+            awayTeamScore
+            homeTeamScore
+            currentInning
+            matchType
+            balls
+            strikes
+            fouls
+            outs
+            matchComplete
+          }
+        }
+      `
+    };
     const res = await axios
-      .post(API_GRAPHQL, updatedMatch)
+      .post(API_GRAPHQL)
       .then(res => {
         console.log("res.data.data", res.data.data);
-        matchDispatch({ type: UPDATE_MATCH, payload: updatedMatch });
+        matchDispatch({ type: UPDATE_MATCH, payload: res.data.data });
       })
       .catch(err => {
         console.log("err", err);

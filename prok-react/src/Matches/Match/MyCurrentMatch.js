@@ -20,7 +20,13 @@ const MyCurrentMatch = props => {
   const [outs, setOuts] = useState(pitchCount.outs);
   // console.log("state", state);
   console.log("match", match);
-  console.log("homeTeamScore", homeTeamScore);
+  // console.log("homeTeamScore", homeTeamScore);
+  match.awayTeamScore = awayTeamScore;
+  match.homeTeamScore = homeTeamScore;
+  match.balls = balls;
+  match.strikes = strikes;
+  match.fouls = fouls;
+  match.outs = outs;
 
   const updateMatch = async updatedMatch => {
     // const res = await axios.patch(
@@ -35,56 +41,62 @@ const MyCurrentMatch = props => {
 
   const changeHomeTeamScore = async scoreBoard => {
     setHomeTeamScore(homeTeamScore + 1);
-    let updatedMatch = {
-      _id: match.matchId,
-      homeTeamScore: homeTeamScore + 1
-    };
-    return updateMatch(updatedMatch);
+    // let updatedMatch = {
+    //   _id: match.matchId,
+    //   homeTeamScore: homeTeamScore + 1
+    // };
+    match.homeTeamScore = homeTeamScore + 1;
+    return updateMatch(match);
   };
 
   const changeAwayTeamScore = async scoreBoard => {
     setAwayTeamScore(awayTeamScore + 1);
-    let updatedMatch = {
-      _id: match.matchId,
-      awayTeamScore: awayTeamScore + 1
-    };
-    return updateMatch(updatedMatch);
+    // let updatedMatch = {
+    //   _id: match.matchId,
+    //   awayTeamScore: awayTeamScore + 1
+    // };
+    match.awayTeamScore = awayTeamScore + 1;
+    return updateMatch(match);
   };
 
   const changeBalls = async scoreBoard => {
     setBalls(balls + 1);
-    let updatedMatch = {
-      _id: match.matchId,
-      balls: balls + 1
-    };
-    return updateMatch(updatedMatch);
+    // let updatedMatch = {
+    //   _id: match.matchId,
+    //   balls: balls + 1
+    // };
+    match.balls = balls + 1;
+    return updateMatch(match);
   };
 
   const changeStrikes = async scoreBoard => {
     setStrikes(strikes + 1);
-    let updatedMatch = {
-      _id: match.matchId,
-      strikes: strikes + 1
-    };
-    return updateMatch(updatedMatch);
+    // let updatedMatch = {
+    //   _id: match.matchId,
+    //   strikes: strikes + 1
+    // };
+    match.strikes = strikes + 1;
+    return updateMatch(match);
   };
 
   const changeFouls = async scoreBoard => {
     setFouls(fouls + 1);
-    let updatedMatch = {
-      _id: match.matchId,
-      fouls: fouls + 1
-    };
-    return updateMatch(updatedMatch);
+    // let updatedMatch = {
+    //   _id: match.matchId,
+    //   fouls: fouls + 1
+    // };
+    match.fouls = fouls + 1;
+    return updateMatch(match);
   };
 
   const changeOuts = async scoreBoard => {
     setOuts(outs + 1);
-    let updatedMatch = {
-      _id: match.matchId,
-      outs: outs + 1
-    };
-    return updateMatch(updatedMatch);
+    // let updatedMatch = {
+    //   _id: match.matchId,
+    //   outs: outs + 1
+    // };
+    match.outs = outs + 1;
+    return updateMatch(match);
   };
 
   return (
