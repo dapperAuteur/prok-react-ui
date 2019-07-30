@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import * as actionTypes from "./actionTypes";
+import { addTeamNamesToMatches } from "./addTeamNamesToMatches";
 
 const API_URL_MATCHES = "/matches";
 
