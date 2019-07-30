@@ -3,11 +3,15 @@ import KickballContext from "./../store/kickball-context";
 import Match from "./Match/Match";
 
 const Matches0001 = props => {
+  console.log("props", props);
   const context = useContext(KickballContext);
-  // console.log("props", props);
-  // console.log("context", context);
-  // console.log("context.matchState.matches", context.matchState.matches);
-  let currentMatches = context.matchState.matches;
+  const currentMatches = context.matchState.matches;
+  // const [currentMatches, setMatches] = useState([]);
+  console.log("context.matchState.matches", context.matchState.matches);
+  // if (currentMatches.length === 0) {
+  // setMatches(context.matchState.matches);
+  // }
+
   const getMatches = context.getMatches;
   const [showAllMatches, setShowAllMatches] = useState(true);
 
@@ -24,7 +28,7 @@ const Matches0001 = props => {
 
   useEffect(() => {
     getMatches();
-    // setMatches(currentMatches);
+    // setMatches(context.matchState.matches);
   }, []);
   return (
     <KickballContext.Consumer>
