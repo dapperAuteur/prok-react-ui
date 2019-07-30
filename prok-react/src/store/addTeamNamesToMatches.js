@@ -1,5 +1,5 @@
 export const addTeamNamesToMatches = (matches, teams) => {
-  matches.map(match => {
+  matches.forEach(match => {
     let awayTeamObj = teams.find(team => {
       return match.awayTeam === team._id;
     });
@@ -11,6 +11,6 @@ export const addTeamNamesToMatches = (matches, teams) => {
     match.homeTeamObj = homeTeamObj;
     match.homeTeamName = homeTeamObj.teamName;
   });
-  console.log("matches", matches);
+  // console.log("matches", matches);
   return matches;
 };
