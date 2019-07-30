@@ -65,10 +65,12 @@ const setMyCurrentMatch = myCurrentMatch => {
 // };
 
 const matchReducer = (state = matchInitialState, action) => {
+  let createdMatch;
   let match;
   let matches;
   let teams;
   let errors;
+  let myCurrentMatch;
   // console.log("action", action);
   // console.log("state", state);
 
@@ -78,9 +80,12 @@ const matchReducer = (state = matchInitialState, action) => {
       errors = action.payload;
       return Object.assign({}, state, errors);
     case actionTypes.CREATE_MATCH:
-      match = action.payload;
-      createMatch(action.payload);
-      return;
+      console.log("action", action);
+      createdMatch = action.payload.createMatch;
+      if (typeof Storage !== "undefined") {
+        localStorage.setItem("createdMatch", JSON.stringify(createdMatch));
+      }
+      return { ...state, myCurrentMatch: myCurrentMatch };
     case actionTypes.SET_MY_CURRENT_MATCH:
       return;
     case actionTypes.UPDATE_MATCH:
@@ -92,7 +97,12 @@ const matchReducer = (state = matchInitialState, action) => {
       matches = action.payload.matchFeed.matches;
       // console.log("matches", matches);
       teams = action.payload.teamFeed.teams;
-      return { ...state, matches, teams };
+      const matchesWithNames = addTeamNamesToMatches(matches, teams);
+      if (typeof Storage !== "undefined") {
+        localStorage.setItem("matches", JSON.stringify(matchesWithNames));
+        localStorage.setItem("teams", JSON.stringify(teams));
+      }
+      return { ...state, teams, matches: matchesWithNames };
     case actionTypes.DELETE_MATCH:
       return;
     case actionTypes.GET_TEAMS:
