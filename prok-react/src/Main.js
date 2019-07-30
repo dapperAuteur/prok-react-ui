@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import GlobalState from "./store/GlobalState";
 import KickballContext from "./store/kickball-context";
-import Matches from "./Matches/Matches";
 import Matches0001 from "./Matches/Matches0001";
 import MyCurrentMatch from "./Matches/Match/MyCurrentMatch";
 import CreateMatch from "./Matches/Match/CreateMatch";
+import MyCreatedMatch from "./Matches/Match/MyCreatedMatch";
 import SignUp from "./Auth/SignUp";
 import SignIn from "./Auth/SignIn";
-import Counter from "./reducerTest/Counter";
 import "./App.css";
 
 function NavBar() {
@@ -30,6 +28,9 @@ function NavBar() {
             </Link> */}
             <Link className="btn btn-default" to="/match/create-match">
               Create Match
+            </Link>
+            <Link className="btn btn-default" to="/my-current/created-match">
+              My Created Match
             </Link>
           </div>
         </div>
@@ -58,23 +59,11 @@ function NavBar() {
 
 const Main = () => {
   const context = useContext(KickballContext);
-  const getMatches = context.getMatches;
-  const getTeams = context.getTeams;
   console.log("context", context);
-  const cookie = decodeURIComponent(document.cookie);
-  // console.log("cookie", cookie);
-  useEffect(() => {
-    return () => {
-      console.log("context", context);
-      getMatches();
-      getTeams();
-    };
-  }, [context]);
   return (
     <Router>
       <div className="App">
         <NavBar />
-        {cookie ? <p>True</p> : <p>False</p>}
         <Route path="/" exact />
         <Route path="/matches" exact component={Matches0001} />
         <Route path="/sign-up" exact component={SignUp} />
@@ -82,6 +71,11 @@ const Main = () => {
         <Route path="/match/create-match" exact component={CreateMatch} />
         <Route path="/match/matchId/edit" exact component={CreateMatch} />
         <Route path="/my-current/match" exact component={MyCurrentMatch} />
+        <Route
+          path="/my-current/created-match"
+          exact
+          component={MyCreatedMatch}
+        />
         <h1>Kickball</h1>
       </div>
     </Router>
