@@ -35,6 +35,7 @@ const MyCurrentMatch = props => {
     // );
     // console.log("res", res);
     // add updated match to session or localStorage
+    updatedMatch._id = updatedMatch.matchId;
     console.log("updatedMatch", updatedMatch);
     updateMatchContext(updatedMatch);
   };

@@ -220,7 +220,7 @@ const GlobalState = props => {
       `
     };
     const res = await axios
-      .post(API_GRAPHQL)
+      .post(API_GRAPHQL, graphqlQuery)
       .then(res => {
         console.log("res.data.data", res.data.data);
         matchDispatch({ type: UPDATE_MATCH, payload: res.data.data });
