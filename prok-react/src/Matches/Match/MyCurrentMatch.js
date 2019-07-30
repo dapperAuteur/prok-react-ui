@@ -143,6 +143,12 @@ const MyCurrentMatch = props => {
   };
 
   const changeOuts = async scoreBoard => {
+    setBalls(0);
+    setStrikes(0);
+    setFouls(0);
+    match.balls = 0;
+    match.strikes = 0;
+    match.fouls = 0;
     setOuts(outs + 1);
     match.outs = outs + 1;
     return checkForWalksAndOuts();

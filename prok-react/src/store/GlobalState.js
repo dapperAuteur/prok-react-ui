@@ -202,7 +202,11 @@ const GlobalState = props => {
         updatedMatch.awayTeamScore
       }", homeTeamScore: "${updatedMatch.homeTeamScore}",balls: "${
         updatedMatch.balls
-      }", strikes: "${updatedMatch.strikes}", fouls: "${updatedMatch.fouls}"}){
+      }", strikes: "${updatedMatch.strikes}", fouls: "${
+        updatedMatch.fouls
+      }", outs: "${updatedMatch.outs}", currentInning: "${
+        updatedMatch.currentInning
+      }"}){
             _id
             awayTeam
             homeTeam
