@@ -195,6 +195,8 @@ const GlobalState = props => {
 
   const updateMatch = async updatedMatch => {
     console.log("updatedMatch", updatedMatch);
+    console.log("updatedMatch.balls", updatedMatch.balls);
+    console.log("198 updatedMatch", JSON.stringify(updatedMatch));
     const graphqlQuery = {
       query: `
         mutation{
@@ -219,6 +221,9 @@ const GlobalState = props => {
         }
       `
     };
+    console.log("graphqlQuery", graphqlQuery);
+    console.log("updatedMatch", updatedMatch);
+    console.log("updatedMatch.balls", updatedMatch.balls);
     const res = await axios
       .post(API_GRAPHQL, graphqlQuery)
       .then(res => {
